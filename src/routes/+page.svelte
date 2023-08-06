@@ -137,7 +137,7 @@
 		<Li class="text-4xl font-inter text-white">LastFM Integration</Li>
 	</List>
 </div>
-<div class="w-full bg-[#0E0E0E]">
+<div class="w-full bg-[#0E0E0E] mt-20">
 	<div class="flex mx-24 py-4">
 		<div class="grow space-y-2">
 			<Heading tag="h3" class="text-inter text-white text-5xl">Muusik</Heading>
