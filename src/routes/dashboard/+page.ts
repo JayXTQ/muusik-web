@@ -1,5 +1,7 @@
 import type { PageLoad } from './$types';
 
-export const load = (async ({url}) => {
-    return {};
+export const ssr = false;
+
+export const load = (async ({ url }) => {
+	return {};
 }) satisfies PageLoad;

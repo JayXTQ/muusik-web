@@ -1,14 +1,12 @@
 /** @type {import('tailwindcss').Config}*/
 const config = {
 	content: [
-	  "./src/**/*.{html,js,svelte,ts}",
-	  "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
 	],
-  
-	plugins: [
-	  require('flowbite/plugin')
-	],
-  
+
+	plugins: [require('flowbite/plugin')],
+
 	darkMode: 'class',
 
 	theme: {
@@ -24,7 +22,7 @@ const config = {
 				blurple: '#5865F2'
 			},
 			fontFamily: {
-			  'inter': ['"Inter"', 'sans-serif'],
+				inter: ['"Inter"', 'sans-serif']
 			}
 		}
 	}
