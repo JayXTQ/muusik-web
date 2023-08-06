@@ -26,7 +26,8 @@
                 authorization: `${tokenType} ${accessToken}`,
             },
         }).then(res => res.json())
-    } else if(browser) {
+    } else {
+        if(browser)
         goto('//api.muusik.app/login');
     }
 </script>
