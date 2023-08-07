@@ -73,6 +73,22 @@
 	/></button
 >
 
+<svelte:head>
+	<title>Dashboard - muusik.app</title>
+	<meta content="Dashboard | muusik.app" property="og:title" />
+	<meta
+		content="The dashboard for Muusik, an open-source Discord music bot"
+		property="og:description"
+	/>
+	<meta content="https://muusik.app/dashboard" property="og:url" />
+	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
+	<meta
+		name="robots"
+		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+	/>
+	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
+</svelte:head>
+
 <pre class="text-white">{JSON.stringify(songs, null, 4)}</pre>
 
 {#await user then u}

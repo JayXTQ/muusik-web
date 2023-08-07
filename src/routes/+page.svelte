@@ -14,13 +14,17 @@
 		name="robots"
 		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 	/>
-    <meta name="description" content="Muusik, an open-source Discord music bot with an interactive dashboard" />
+	<meta
+		name="description"
+		content="Muusik, an open-source Discord music bot with an interactive dashboard"
+	/>
 </svelte:head>
 
 <div class="w-full p-5 bg-red-600">
 	<P class="text-white font-inter text-center"
 		>Hello, currently this is still in development, but check out our Discord <A
-			href="https://discord.gg/TjQ7age85Y" class="text-blue-500">here</A
+			href="https://discord.gg/TjQ7age85Y"
+			class="text-blue-500">here</A
 		></P
 	>
 </div>
@@ -158,8 +162,7 @@
 				>A free, open-source Discord music bot</P
 			>
 			<div class="flex gap-4">
-				<img src="/github.svg" alt="GitHub" class="h-12" /><a
-					href="https://discord.gg/TjQ7age85Y"
+				<img src="/github.svg" alt="GitHub" class="h-12" /><a href="https://discord.gg/TjQ7age85Y"
 					><img src="/discord.svg" alt="Discord" class="h-12" /></a
 				>
 			</div>
