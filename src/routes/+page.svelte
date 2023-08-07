@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </div>
-<div class="m-[2rem] space-y-[14.81rem]">
+<div class="m-[2rem] lg:space-y-[14.81rem] space-y-20">
 	<div class="gap-[1.38rem] flex xl:flex-row flex-col" id="learn-more">
 		<div class="xl:w-5/12">
 			<Heading tag="h2" class="text-white font-inter text-5xl">Personal DJ</Heading>
@@ -56,16 +56,16 @@
 				>Have a song in mind? Give it to us via your dashboard and we’ll do the rest.</P
 			>
 		</div>
-		<Components.HomeBox class="xl:w-7/12 flex items-center h-[25.5rem]"
-			><div class="my-auto mx-16 bg-primary-300 w-full h-[9.5rem] flex rounded-[0.625rem]">
-				<Avatar rounded src="/gasoline.png" class="h-[7.5rem] my-auto w-auto ml-[0.94rem]" />
-				<div class="my-auto h-[7.5rem] ml-4 grow">
-					<P class="font-inter text-white text-5xl">Gasoline</P>
-					<P class="font-inter text-white text-3xl">The Weeknd</P>
-					<P class="font-inter text-white text-2xl">Dawn FM</P>
+		<Components.HomeBox class="xl:w-7/12 flex items-center lg:h-[25.5rem] h-56"
+			><div class="my-auto mx-16 bg-primary-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
+				<Avatar rounded src="/gasoline.png" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+				<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+					<P class="font-inter text-white lg:text-5xl text-md">Gasoline</P>
+					<P class="font-inter text-white lg:text-3xl text-sm">The Weeknd</P>
+					<P class="font-inter text-white lg:text-2xl text-xs">Dawn FM</P>
 				</div>
-				<Icon src={Pause} class="text-white h-[4.75rem] w-auto my-auto" />
-				<div class="my-auto mr-[2.48rem]">
+				<Icon src={Pause} class="text-white lg:h-[4.75rem] h-12 w-auto my-auto -mr-16 lg:-mr-0" />
+				<div class="my-auto lg:mr-[2.48rem] m-0 lg:visible invisible">
 					<Icon src={Forward} class="text-white h-[4.75rem] w-auto" solid />
 					<P class="font-inter text-white text-center absolute w-[4.75rem]">0/1</P>
 				</div>
@@ -73,61 +73,61 @@
 		>
 	</div>
 	<div class="gap-[1.38rem] flex xl:flex-row flex-col">
-		<Components.HomeBox class="xl:w-7/12 flex flex-col items-center h-[34.875rem]"
+		<Components.HomeBox class="xl:w-7/12 flex flex-col items-center lg:h-[34.875rem] h-[25rem]"
 			><div class="my-auto w-full space-y-[0.81rem]">
 				<div
-					class="mx-8 bg-primary-100 w-auto h-[7.625rem] flex rounded-[1.25rem] border-primary-200 border-[5px]"
+					class="mx-8 bg-primary-100 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-200 border-[5px]"
 				>
-					<Icon src={MagnifyingGlass} class="text-[#715E5E] h-[5rem] w-auto my-auto ml-[0.94rem]" />
-					<P class="text-white font-inter my-auto text-4xl ml-[0.62rem]">Blinding Lights</P>
+					<Icon src={MagnifyingGlass} class="text-[#715E5E] lg:h-[5rem] h-6 w-auto my-auto ml-[0.94rem]" />
+					<P class="text-white font-inter my-auto lg:text-4xl text-xl ml-[0.62rem]">Blinding Lights</P>
 				</div>
 				<div
-					class="mx-8 bg-primary-100 w-auto h-[24.5625rem] rounded-[1.25rem] flex border-primary-200 border-[5px] overflow-hidden"
+					class="mx-8 bg-primary-100 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-200 border-[5px] overflow-hidden"
 				>
 					<div class="grow my-[1.06rem]">
 						<div class="flex">
-							<Avatar rounded src="/bl1.jpg" class="h-[7.5rem] my-auto w-auto ml-[0.94rem]" />
-							<div class="my-auto h-[7.5rem] ml-4 grow">
-								<P class="font-inter text-white text-5xl truncate">Blinding Lights</P>
-								<P class="font-inter text-white text-3xl truncate">The Weeknd</P>
-								<P class="font-inter text-white text-2xl truncate">After Hours</P>
+							<Avatar rounded src="/bl1.jpg" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
+								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
+								<P class="font-inter text-white lg:text-5xl text-xs truncate">After Hours</P>
 							</div>
 							<img
-								class="text-white h-14 w-auto my-auto mr-[1.55rem]"
+								class="text-white lg:h-14 h-6 w-auto my-auto mr-[1.55rem]"
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white h-14 w-auto my-auto mr-10" src="/youtube.svg" alt="Youtube" />
+							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl2.png" class="h-[7.5rem] my-auto w-auto ml-[0.94rem]" />
-							<div class="my-auto h-[7.5rem] ml-4 grow">
-								<P class="font-inter text-white text-5xl truncate">City of blindi...</P>
-								<P class="font-inter text-white text-3xl truncate">U2</P>
-								<P class="font-inter text-white text-2xl truncate"
+							<Avatar rounded src="/bl2.png" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+								<P class="font-inter text-white lg:text-5xl text-md truncate">City of blindi...</P>
+								<P class="font-inter text-white lg:text-5xl text-sm truncate">U2</P>
+								<P class="font-inter text-white lg:text-5xl text-xs truncate"
 									>How to dismantle an atomic bomb</P
 								>
 							</div>
 							<img
-								class="text-white h-14 w-auto my-auto mr-[1.55rem]"
+								class="text-white lg:h-14 h-6 w-auto my-auto mr-[1.55rem]"
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white h-14 w-auto my-auto mr-10" src="/youtube.svg" alt="Youtube" />
+							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl3.jpg" class="h-[7.5rem] my-auto w-auto ml-[0.94rem]" />
-							<div class="my-auto h-[7.5rem] ml-4 grow w-full">
-								<P class="font-inter text-white text-5xl truncate">Blinding Lights</P>
-								<P class="font-inter text-white text-3xl truncate">The Weeknd</P>
-								<P class="font-inter text-white text-2xl truncate">After Hours</P>
+							<Avatar rounded src="/bl3.jpg" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow w-full">
+								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
+								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
+								<P class="font-inter text-white lg:text-5xl text-xs truncate">After Hours</P>
 							</div>
 							<img
-								class="text-white h-14 w-auto my-auto mr-[1.55rem]"
+								class="text-white lg:h-14 h-6 w-auto my-auto mr-[1.55rem]"
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white h-14 w-auto my-auto mr-10" src="/youtube.svg" alt="Youtube" />
+							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
 						</div>
 					</div>
 					<div class="h-auto rounded-full bg-[#312D2D] w-4 m-2">
@@ -137,9 +137,9 @@
 			</div></Components.HomeBox
 		>
 		<div class="xl:w-5/12">
-			<Heading tag="h2" class="text-white font-inter text-5xl text-right">Quick Search</Heading>
+			<Heading tag="h2" class="text-white font-inter text-5xl lg:text-right">Quick Search</Heading>
 			<br />
-			<P class="text-white font-inter text-4xl text-right"
+			<P class="text-white font-inter text-4xl lg:text-right"
 				>We have lots of songs on multiple platforms. Search a song, choose the platform and play</P
 			>
 		</div>
