@@ -4,6 +4,19 @@
 	import { Icon, Pause, Forward, MagnifyingGlass } from 'svelte-hero-icons';
 </script>
 
+<svelte:head>
+	<title>muusik.app</title>
+	<meta content="muusik.app" property="og:title" />
+	<meta content="Muusik, an open-source Discord music bot" property="og:description" />
+	<meta content="https://muusik.app/" property="og:url" />
+	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
+	<meta
+		name="robots"
+		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+	/>
+    <meta name="description" content="Muusik, an open-source Discord music bot with an interactive dashboard" />
+</svelte:head>
+
 <div class="w-full p-5 bg-red-600">
 	<P class="text-white font-inter text-center"
 		>Hello, currently this is still in development, but check out our Discord <A
