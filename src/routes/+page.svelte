@@ -58,7 +58,7 @@
 		</div>
 		<Components.HomeBox class="xl:w-7/12 flex items-center lg:h-[25.5rem] h-56"
 			><div class="my-auto mx-16 bg-primary-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
-				<Avatar rounded src="/gasoline.png" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+				<Avatar rounded src="/gasoline.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 				<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 					<P class="font-inter text-white lg:text-5xl text-md">Gasoline</P>
 					<P class="font-inter text-white lg:text-3xl text-sm">The Weeknd</P>
@@ -86,7 +86,7 @@
 				>
 					<div class="grow my-[1.06rem]">
 						<div class="flex">
-							<Avatar rounded src="/bl1.jpg" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
 								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
@@ -100,7 +100,7 @@
 							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl2.png" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<Avatar rounded src="/bl2.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">City of blindi...</P>
 								<P class="font-inter text-white lg:text-5xl text-sm truncate">U2</P>
@@ -116,7 +116,7 @@
 							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl3.jpg" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" />
+							<Avatar rounded src="/bl3.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow w-full">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
 								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
