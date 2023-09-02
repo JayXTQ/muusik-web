@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	// export let data: PageData;
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -53,14 +53,18 @@
 			goto('//api.muusik.app/login');
 	}
 	let songs: any = [];
+	let timer: any;
 	async function searchSong(e: any) {
 		e.preventDefault();
-		const query = e.target.value;
-		const res = await fetch(`//localhost:5714/find-song?query=${query}`);
-		const data = await res.json();
-		if (data.success) {
-			songs = data.song.slice(0, 5);
-		}
+		clearTimeout(timer);
+		timer = setTimeout(async () => {
+			const query = e.target.value;
+			const res = await fetch(`//localhost:5714/find-song?query=${query}`);
+			const data = await res.json();
+			if (data.success) {
+				songs = data.song.slice(0, 5);
+			}
+		}, 500);
 	}
 </script>
 
@@ -132,7 +136,7 @@
 			name="query"
 			placeholder="Search"
 			class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
-			on:change={searchSong}
+			on:keyup={searchSong}
 		/>
 
 		<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
