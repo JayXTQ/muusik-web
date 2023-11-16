@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
+	import type { Songs, Tracks } from '$lib/types.js';
+
 	export let data
 	let { supabase, session } = data
 	$: ({ supabase, session } = data)
@@ -22,23 +25,22 @@
 		Avatar
 	} from 'flowbite-svelte';
 	import { Icon, Cog6Tooth, Pause, Forward } from 'svelte-hero-icons';
-	let songs: any = [];
-	let timer: any;
-	async function searchSong(e: any) {
-		e.preventDefault();
+	let songs: Tracks = [];
+	let timer: NodeJS.Timeout;
+	let searchQuery: string;
+	async function searchSong() {
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
-			const query = e.target.value;
-			const res = await fetch(`//localhost:8000/find-song?query=${query}`);
-			const data = await res.json();
-			if (data.success) {
-				songs = data.song.slice(0, 5);
+			const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-song?query=${searchQuery}`);
+			const data: Songs = await res.json();
+			if (res.status === 200) {
+				songs = data.tracks.track.slice(0, 5);
 			}
 		}, 500);
 	}
 </script>
 
-<button on:click={searchSong} value="blinding lights"
+<button
 	><Icon
 		src={Cog6Tooth}
 		class="float-right m-5 text-white absolute right-0 top-0"
@@ -103,7 +105,8 @@
 		name="query"
 		placeholder="Search"
 		class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
-		on:keyup={searchSong}
+		on:input={() => searchSong()}
+		bind:value={searchQuery}
 	/>
 
 	<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
