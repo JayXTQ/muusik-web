@@ -89,8 +89,8 @@
 							<Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
-								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
-								<P class="font-inter text-white lg:text-5xl text-xs truncate">After Hours</P>
+								<P class="font-inter text-white lg:text-4xl text-sm truncate">The Weeknd</P>
+								<P class="font-inter text-white lg:text-3xl text-xs truncate">After Hours</P>
 							</div>
 							<img
 								class="text-white lg:h-14 h-6 w-auto my-auto mr-[1.55rem]"
@@ -103,8 +103,8 @@
 							<Avatar rounded src="/bl2.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">City of blindi...</P>
-								<P class="font-inter text-white lg:text-5xl text-sm truncate">U2</P>
-								<P class="font-inter text-white lg:text-5xl text-xs truncate"
+								<P class="font-inter text-white lg:text-4xl text-sm truncate">U2</P>
+								<P class="font-inter text-white lg:text-3xl text-xs truncate"
 									>How to dismantle an atomic bomb</P
 								>
 							</div>
@@ -119,8 +119,8 @@
 							<Avatar rounded src="/bl3.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow w-full">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
-								<P class="font-inter text-white lg:text-5xl text-sm truncate">The Weeknd</P>
-								<P class="font-inter text-white lg:text-5xl text-xs truncate">After Hours</P>
+								<P class="font-inter text-white lg:text-4xl text-sm truncate">The Weeknd</P>
+								<P class="font-inter text-white lg:text-3xl text-xs truncate">After Hours</P>
 							</div>
 							<img
 								class="text-white lg:h-14 h-6 w-auto my-auto mr-[1.55rem]"
