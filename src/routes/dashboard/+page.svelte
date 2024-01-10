@@ -22,22 +22,45 @@
 		TableHead,
 		TableHeadCell,
 		Input,
-		Avatar
+		Avatar,
+
+		Modal,
+
+		Spinner
+
+
 	} from 'flowbite-svelte';
 	import { Icon, Cog6Tooth, Pause, Forward } from 'svelte-hero-icons';
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
 	let searchQuery: string;
-	async function searchSong() {
+	let chosenUrl: string;
+	let links: string[]
+	function searchSong() {
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
-			const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-song?query=${searchQuery}`);
+			const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-song?query=${encodeURIComponent(searchQuery)}`);
 			const data: Songs = await res.json();
 			if (res.status === 200) {
 				songs = data.tracks.track.slice(0, 5);
 			}
 		}, 500);
 	}
+	async function playLinks()  {
+		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-playlinks?url=${encodeURIComponent(chosenUrl)}`);
+		links = (await res.json()).links as unknown as string[];
+		return links
+	}
+	async function play(url: string) {
+		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/play`, { method: 'POST', body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id }) });
+		const data = await res.json();
+	}
+
+	$: if (searchQuery === '') {
+		songs = [];
+	}
+
+	let selectModal = false;
 </script>
 
 <button
@@ -65,7 +88,7 @@
 	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
 </svelte:head>
 
-<pre class="text-white">{JSON.stringify(songs, null, 4)}</pre>
+<!-- <pre class="text-white">{JSON.stringify(songs, null, 4)}</pre> -->
 
 <div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
 	<div class="bg-primary-100 rounded-xl mx-[5.63rem] grow max-h-96 flex-col flex">
@@ -108,9 +131,46 @@
 		on:input={() => searchSong()}
 		bind:value={searchQuery}
 	/>
+	{#if songs.length !== 0}
+		<div
+		class="flex mx-auto bg-primary-100 max-h-5 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-clip mt-5"
+	>
+		<div>
+			{#each songs as song}
+				<button class="flex my-[1.06rem]" on:click={() => {
+					chosenUrl = song.url;
+					selectModal = true;
+				}}>
+					<Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+					<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+						<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
+						<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
+					</div>
+				</button>
+			{/each}
+		</div>
+	</div>
+	{/if}
+	{#if selectModal}
+		<Modal title="Choose song location" bind:open={selectModal}>
+			{#await playLinks()}
+				<Spinner color="purple" size="lg" />
+			{:then links}
+				{#each links as link}
+					{#if link.includes("spotify")}
+						<Button color="green" class="font-inter w-max" size="lg" on:click={() => play(link)}>Spotify</Button>
+					{:else if link.includes("youtube")}
+						<Button color="red" class="font-inter w-max" size="lg" on:click={() => play(link)}>YouTube</Button>
+					{/if}
+				{/each}
+			{:catch}
+				<P>Something went wrong, try closing and opening again</P>
+			{/await}
+		</Modal>
+	{/if}
 
 	<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
-		<Avatar rounded src="/gasoline.png" class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
+		<Avatar rounded src="/gasoline.webp" class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
 		<div class="my-auto h-[7.5rem] ml-4 grow flex">
 			<div class="my-auto">
 				<P class="font-inter text-white text-3xl">Gasoline</P>

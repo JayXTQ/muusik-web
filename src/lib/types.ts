@@ -15,5 +15,4 @@ export type Tracks = Array<{
         size: string;
     }>;
     mbid: string;
-    links: Array<string>;
 }>
