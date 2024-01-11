@@ -105,7 +105,7 @@
 								<P class="font-inter text-white lg:text-5xl text-md truncate">City of blindi...</P>
 								<P class="font-inter text-white lg:text-4xl text-sm truncate">U2</P>
 								<P class="font-inter text-white lg:text-3xl text-xs truncate"
-									>How to dismantle an atomic bomb</P
+									>How to dismantle an...</P
 								>
 							</div>
 							<img
@@ -145,14 +145,17 @@
 		</div>
 	</div>
 </div>
-<div class="flex justify-center mt-10">
-	<Button class="bg-primary-400 font-inter text-3xl" size="xl">Interested?</Button>
-</div>
 <div class="mt-10 m-8">
 	<Heading tag="h2" class="text-inter text-white text-6xl">Other features</Heading>
 	<List list="disc" class="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
 		<Li class="text-4xl font-inter text-white">LastFM Integration</Li>
+		<Li class="text-4xl font-inter text-white">Find only the best quality</Li>
+		<Li class="text-4xl font-inter text-white">Premium features, for free</Li>
+		<Li class="text-4xl font-inter text-white">Seamless connection</Li>
 	</List>
+</div>
+<div class="flex justify-center mt-10">
+	<Button class="bg-primary-400 font-inter text-3xl" size="xl">Interested?</Button>
 </div>
 <div class="w-full bg-[#0E0E0E] mt-20">
 	<div class="flex mx-24 py-4">
