@@ -25,7 +25,7 @@
 		>Hello, currently this is still in development, but check out our Discord <A
 			href="https://discord.gg/TjQ7age85Y"
 			class="text-blue-500">here</A
-		></P
+		>. It still works, just may not be up to standards</P
 	>
 </div>
 <div class="h-screen w-full flex justify-center items-center">
@@ -41,7 +41,7 @@
 		>
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
-			<Button class="bg-primary-400 font-inter text-3xl" size="xl">Get started</Button>
+			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Get started</Button>
 			<Secondary class="font-inter text-3xl">or</Secondary>
 			<A class="text-white font-inter text-3xl" href="#learn-more">Learn more</A>
 		</div>
@@ -155,7 +155,7 @@
 	</List>
 </div>
 <div class="flex justify-center mt-10">
-	<Button class="bg-primary-400 font-inter text-3xl" size="xl">Interested?</Button>
+	<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Interested?</Button>
 </div>
 <div class="w-full bg-[#0E0E0E] mt-20">
 	<div class="flex mx-24 py-4">

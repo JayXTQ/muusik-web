@@ -259,7 +259,7 @@
 			<Icon src={Pause} class="text-white w-auto my-auto" size="70" />
 			<button on:click={() => skip()} class="my-auto mr-[2.48rem]">
 				<Icon src={Forward} class="text-white w-auto" solid size="70" />
-				<P class="font-inter text-white text-center absolute w-[70px]">0/1</P>
+				<!-- <P class="font-inter text-white text-center absolute w-[70px]">0/1</P> -->
 			</button>
 		</div>
 	</div>
