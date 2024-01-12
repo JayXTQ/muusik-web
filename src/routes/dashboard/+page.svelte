@@ -235,9 +235,9 @@
 					{/if}
 					{#each links as link}
 						{#if link.includes("spotify")}
-							<Button color="green" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button>
+							<Button color="green" class="font-inter w-max" size="lg" on:click={async () => { playing = await play(link); selectModal = false }}>Spotify</Button>{#if links.length !== 1}<br />{/if}
 						{:else if link.includes("youtube")}
-							<Button color="red" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button>
+							<Button color="red" class="font-inter w-max" size="lg" on:click={async () => { playing = await play(link); selectModal = false }}>YouTube</Button>{#if links.length !== 1}<br />{/if}
 						{/if}
 					{/each}
 				{:catch}
