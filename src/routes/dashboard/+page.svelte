@@ -215,7 +215,7 @@
 						chosenUrl = song.url;
 						selectModal = true;
 					}}>
-						<Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+						<!-- <Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" /> -->
 						<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 							<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
 							<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
