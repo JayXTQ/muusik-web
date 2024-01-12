@@ -172,5 +172,9 @@
 				>
 			</div>
 		</div>
+		<div class="flex flex-col gap-2 my-auto">
+			<A class="font-inter text-white text-xl" href="/terms">Terms and Conditions</A>
+			<A class="font-inter text-white text-xl" href="/privacy">Privacy Policy</A>
+		</div>
 	</div>
 </div>
