@@ -42,7 +42,7 @@
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
 			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Get started</Button><br>
-			<A class="font-inter text-3xl" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+			<A class="font-inter text-3xl text-white" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
 			<Secondary class="font-inter text-3xl">or</Secondary>
 			<A class="text-white font-inter text-3xl" href="#learn-more">Learn more</A>
 		</div>
@@ -157,7 +157,7 @@
 </div>
 <div class="flex justify-center mt-10">
 	<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Interested?</Button><br>
-	<A class="font-inter text-3xl" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+	<A class="font-inter text-3xl text-white" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
 </div>
 <div class="w-full bg-[#0E0E0E] mt-20">
 	<div class="flex mx-24 py-4">
