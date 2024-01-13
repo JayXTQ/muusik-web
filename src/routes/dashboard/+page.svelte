@@ -100,7 +100,7 @@
 		if (data.success)
 			current = data.song;
 		else {
-			return fail(res.status, { message: data.message })
+			current = {};
 		}
 	
 	}
