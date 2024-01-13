@@ -35,7 +35,7 @@
 
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
-	let searchQuery: string;
+	let searchQuery: string = '';
 	let chosenUrl: string;
 	let links: string[]
 	let queue: any[] = []
@@ -45,6 +45,7 @@
 	let playingSong: boolean = false;
 
 	function searchSong() {
+		if(checkPlaylist(searchQuery)) return;
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
 			const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-song?query=${encodeURIComponent(searchQuery)}`);
@@ -104,8 +105,8 @@
 		}
 	}
 	async function currentSong() {
-		if(currentElapsed-1000 < current.durationMS) {
-			if(playingSong && millisToMinutesAndSeconds(currentElapsed) !== current.duration) currentElapsed += 1000;
+		if(currentElapsed-1000 < current.durationMS && playingSong && millisToMinutesAndSeconds(currentElapsed) !== current.duration) {
+			currentElapsed += 1000;
 			return;
 		}
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`);
@@ -116,6 +117,7 @@
 		}
 		else {
 			current = {};
+			currentElapsed = 0;
 		}
 	}
 	async function currentSongLoop() {
@@ -155,6 +157,25 @@
 			playingSong = false;
 			return fail(res.status, { message: data.message })
 		}
+	}
+	async function playPlaylist() {
+		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/playlist`, {
+			method: 'POST',
+			body: JSON.stringify({ user: session?.user.user_metadata.provider_id, url: searchQuery })
+		});
+		const data = await res.json() as { message: string, success: false } | { success: true };
+		if(checkCurrent()) location.reload()
+		if (data.success)
+			return data.success;
+		else {
+			return fail(res.status, { message: data.message })
+		}
+	
+	}
+
+	function checkPlaylist(input: string) {
+		if(input.startsWith('https://open.spotify.com/playlist/') || (input.startsWith("https://music.apple.com") && input.includes("playlist"))) return true
+		else return false
 	}
 
 	function millisToMinutesAndSeconds(millis: number) {
@@ -214,8 +235,8 @@
 				<Heading tag="h2" class="text-white font-inter grow">The Queue</Heading>
 				<Heading tag="h2" class="text-white font-inter w-fit">{session?.user.user_metadata.name}</Heading>
 			</div>
-			<div class="grow h-80">
-				<Table color="custom" class="text-white font-inter whitespace-nowrap w-full">
+			<div class="grow h-80 overflow-auto">
+				<Table color="custom" class="text-white font-inter whitespace-nowrap w-full h-full">
 					<TableHead>
 						<TableHeadCell class="w-1">Pos.</TableHeadCell>
 						<TableHeadCell>Track</TableHeadCell>
@@ -253,23 +274,32 @@
 			on:input={() => searchSong()}
 			bind:value={searchQuery}
 		/>
-		{#if songs.length !== 0}
+		{#if songs.length !== 0 || checkPlaylist(searchQuery)}
 			<div
 			class="flex mx-auto bg-primary-100 max-h-5 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-clip mt-5"
 		>
 			<div>
-				{#each songs as song}
-					<button class="flex my-[1.06rem]" on:click={() => {
-						chosenUrl = song.url;
-						selectModal = true;
+				{#if !checkPlaylist(searchQuery)}
+					{#each songs as song}
+						<button class="flex my-[1.06rem] w-full overflow-hidden" on:click={() => {
+							chosenUrl = song.url;
+							selectModal = true;
+						}}>
+							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+								<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
+								<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
+							</div>
+						</button>
+					{/each}
+				{:else}
+					<button class="flex my-[1.06rem] w-full overflow-hidden" on:click={() => {
+						playPlaylist();
 					}}>
-						<!-- <Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" /> -->
-						<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
-							<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
-							<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
+						<div class="my-auto lg:h-[7.5rem] !h-fit ml-4 grow">
+							<P class="font-inter text-white lg:text-5xl text-md !truncate">Click to play this playlist</P>
 						</div>
 					</button>
-				{/each}
+				{/if}
 			</div>
 		</div>
 		{/if}

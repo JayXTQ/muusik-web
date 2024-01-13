@@ -156,8 +156,10 @@
 	</List>
 </div>
 <div class="flex justify-center mt-10">
-	<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Interested?</Button><br>
-	<A class="font-inter text-3xl text-white" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+	<div class="flex flex-col gap-2">
+		<Button class="bg-primary-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard">Interested?</Button><br>
+		<A class="font-inter text-3xl text-white mx-auto" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+	</div>
 </div>
 <div class="w-full bg-[#0E0E0E] mt-20">
 	<div class="flex mx-24 py-4">
