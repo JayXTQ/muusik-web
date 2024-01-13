@@ -40,6 +40,7 @@
 	let queue: any[] = []
 	let history: any[] = []
 	let current: any = {}
+	let currentElapsed: number = 0;
 	function searchSong() {
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
@@ -92,13 +93,18 @@
 		else {
 			return fail(res.status, { message: data.message })
 		}
-	
 	}
 	async function currentSong() {
+		if(currentElapsed-1000 < current.durationMS) {
+			currentElapsed += 1000;
+			return;
+		}
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`);
-		const data = await res.json() as { message: string, success: false } | { song: any, success: true };
-		if (data.success)
+		const data = await res.json() as { message: string, success: false } | { song: any, currentTrackTimeElapsed: number, success: true };
+		if (data.success) {
 			current = data.song;
+			currentElapsed = data.currentTrackTimeElapsed;
+		}
 		else {
 			current = {};
 		}
@@ -106,7 +112,7 @@
 	}
 	async function currentSongLoop() {
 		await currentSong();
-		setTimeout(currentSongLoop, 5000);
+		setTimeout(currentSongLoop, 1000);
 	}
 	async function skip() {
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/skip`, {
@@ -119,6 +125,17 @@
 		else {
 			return fail(res.status, { message: data.message })
 		}
+	}
+	
+
+	function millisToMinutesAndSeconds(millis: number) {
+		const d = new Date(Date.UTC(0,0,0,0,0,0,millis)),
+		parts = [
+			d.getUTCMinutes(),
+			d.getUTCSeconds()
+		],
+		formatted = parts.map(s => String(s).padStart(2,'0')).join(':');
+		return formatted
 	}
 
 	$: if (searchQuery === '') {
@@ -253,6 +270,7 @@
 					<div class="my-auto">
 							<P class="font-inter text-white text-3xl">{current.title || "Nothing is playing"}</P>
 							<P class="font-inter text-white text-2xl">{current.author || ""}</P>
+							<P class="font-inter text-white text-xl">{current.title ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}` : ''}</P>
 					</div>
 				</div>
 			{/await}
