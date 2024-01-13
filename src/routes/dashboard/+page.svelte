@@ -316,6 +316,8 @@
 							<Button color="green" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button>{#if links.length !== 1}<br />{/if}
 						{:else if link.includes("youtube")}
 							<Button color="red" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button>{#if links.length !== 1}<br />{/if}
+						{:else if link.includes("apple")}
+							<Button color="alternative" class="font-inter w-max text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button>{#if links.length !== 1}<br />{/if}
 						{/if}
 					{/each}
 				{:catch}
