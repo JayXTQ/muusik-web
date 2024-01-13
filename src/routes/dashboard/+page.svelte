@@ -24,12 +24,8 @@
 		TableHeadCell,
 		Input,
 		Avatar,
-
 		Modal,
-
 		Spinner
-
-
 	} from 'flowbite-svelte';
 	import { Icon, Cog6Tooth, Pause, Forward, Play } from 'svelte-hero-icons';
 
@@ -37,7 +33,6 @@
 	let timer: NodeJS.Timeout;
 	let searchQuery: string = '';
 	let chosenUrl: string;
-	let links: string[]
 	let queue: any[] = []
 	let history: any[] = []
 	let current: any = {}
@@ -61,8 +56,9 @@
 	}
 	async function playLinks()  {
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-playlinks?url=${encodeURIComponent(chosenUrl)}`);
-		links = (await res.json()).links as unknown as string[];
-		return links
+		const data = await res.json() as { message: string, success: false } | { links: string[], albumCover: string, songName: string, success: true };
+		if(!data.success) throw fail(res.status, { message: data.message })
+		return { links: Array.isArray(data.links) ? data.links : [], albumCover: data.albumCover, chosenSongName: data.songName }
 	}
 	async function play(url: string) {
 		selectModal = false;
@@ -306,20 +302,24 @@
 		{#if selectModal}
 			<Modal title="Choose song location" bind:open={selectModal}>
 				{#await playLinks()}
-					<Spinner color="purple" size="lg" />
+					<Spinner color="purple" size="md" class="flex mx-auto h-40 w-auto overflow-hidden" />
 				{:then links}
 					{#if playing && playing?.res?.status !== 200}
 						<P class="text-red-600">{playing.data.message}</P>
 					{/if}
-					{#each links as link}
-						{#if link.includes("spotify")}
-							<Button color="green" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button>{#if links.length !== 1}<br />{/if}
-						{:else if link.includes("youtube")}
-							<Button color="red" class="font-inter w-max" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button>{#if links.length !== 1}<br />{/if}
-						{:else if link.includes("apple")}
-							<Button color="alternative" class="font-inter w-max text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button>{#if links.length !== 1}<br />{/if}
-						{/if}
-					{/each}
+					<div class="flex flex-col gap-2">
+						<img src={links.albumCover} class="w-32 h-auto mx-auto" alt="Album cover for selected song" />
+						<P class="text-xl mx-auto my-4">{links.chosenSongName}</P>
+						{#each links.links as link}
+							{#if link.includes("spotify")}
+								<Button color="green" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button>{#if links.links.length !== 1}<br />{/if}
+							{:else if link.includes("youtube")}
+								<Button color="red" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button>{#if links.links.length !== 1}<br />{/if}
+							{:else if link.includes("apple")}
+								<Button color="alternative" class="font-inter w-full text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button>{#if links.links.length !== 1}<br />{/if}
+							{/if}
+						{/each}
+					</div>
 				{:catch}
 					<P>Something went wrong, try closing and opening again</P>
 				{/await}
