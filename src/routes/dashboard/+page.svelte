@@ -312,11 +312,14 @@
 						<P class="text-xl mx-auto my-4">{links.chosenSongName}</P>
 						{#each links.links as link}
 							{#if link.includes("spotify")}
-								<Button color="green" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button>{#if links.links.length !== 1}<br />{/if}
+								<Button color="green" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button><br />
+								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Spotify</A><br />
 							{:else if link.includes("youtube")}
-								<Button color="red" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button>{#if links.links.length !== 1}<br />{/if}
+								<Button color="red" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button><br />
+								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in YouTube</A><br />
 							{:else if link.includes("apple")}
-								<Button color="alternative" class="font-inter w-full text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button>{#if links.links.length !== 1}<br />{/if}
+								<Button color="alternative" class="font-inter w-full text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button><br />
+								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Apple Music</A><br />
 							{/if}
 						{/each}
 					</div>
