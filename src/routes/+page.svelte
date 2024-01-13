@@ -169,9 +169,9 @@
 				>A free, open-source Discord music bot</P
 			>
 			<div class="flex gap-4">
-				<img src="/github.svg" alt="GitHub" class="h-12" /><a href="https://discord.gg/TjQ7age85Y"
+				<a href="https://github.com/JayXTQ/muusik-web"><img src="/github.svg" alt="GitHub" class="h-12" /></a><a href="https://discord.gg/TjQ7age85Y"
 					><img src="/discord.svg" alt="Discord" class="h-12" /></a
-				>
+				><a href="https://ko-fi.com/jxtq"><img src="/kofi.webp" alt="Ko-fi" class="h-12" /></a>
 			</div>
 		</div>
 		<div class="flex flex-col gap-2 my-auto">
