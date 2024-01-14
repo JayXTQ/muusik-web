@@ -234,12 +234,12 @@
 		/></button
 	>
 	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
-		<div class="bg-primary-100 rounded-xl mx-[5.63rem] grow max-h-96 flex-col flex">
+		<div class="bg-primary-100 rounded-xl mx-[5.63rem] grow max-h-[50dvh] flex-col flex">
 			<div class="flex m-4">
 				<Heading tag="h2" class="text-white font-inter grow">The Queue</Heading>
 				<Heading tag="h2" class="text-white font-inter w-fit">{session?.user.user_metadata.name}</Heading>
 			</div>
-			<div class="grow h-80 overflow-auto">
+			<div class="grow h-full overflow-auto">
 				<Table color="custom" class="text-white font-inter whitespace-nowrap w-full h-full">
 					<TableHead>
 						<TableHeadCell class="w-1">Pos.</TableHeadCell>
@@ -268,101 +268,102 @@
 			<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
 			>
 		</div>
-
-		<Input
-			size="lg"
-			type="text"
-			name="query"
-			placeholder="Search"
-			class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
-			on:input={() => searchSong()}
-			bind:value={searchQuery}
-		/>
-		{#if songs.length !== 0 || checkPlaylist(searchQuery)}
-			<div
-			class="flex mx-auto bg-primary-100 max-h-5 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-clip mt-5"
-		>
-			<div>
-				{#if !checkPlaylist(searchQuery)}
-					{#each songs as song}
+		<div class="m-5">
+			<Input
+				size="lg"
+				type="text"
+				name="query"
+				placeholder="Search"
+				class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
+				on:input={() => searchSong()}
+				bind:value={searchQuery}
+			/>
+			{#if songs.length !== 0 || checkPlaylist(searchQuery)}
+				<div
+				class="flex mx-auto bg-primary-100 max-h-40 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-auto mt-5"
+			>
+				<div>
+					{#if !checkPlaylist(searchQuery)}
+						{#each songs as song}
+							<button class="flex my-[1.06rem] w-full overflow-hidden" on:click={() => {
+								chosenUrl = song.url;
+								selectModal = true;
+							}}>
+								<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
+									<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
+									<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
+								</div>
+							</button>
+						{/each}
+					{:else}
 						<button class="flex my-[1.06rem] w-full overflow-hidden" on:click={() => {
-							chosenUrl = song.url;
-							selectModal = true;
+							playPlaylist();
 						}}>
-							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
-								<P class="font-inter text-white lg:text-5xl text-md !truncate">{song.name}</P>
-								<P class="font-inter text-white lg:text-4xl text-sm !truncate">{song.artist}</P>
+							<div class="my-auto lg:h-[7.5rem] !h-fit ml-4 grow">
+								<P class="font-inter text-white lg:text-5xl text-md !truncate">Click to play this playlist</P>
 							</div>
 						</button>
-					{/each}
-				{:else}
-					<button class="flex my-[1.06rem] w-full overflow-hidden" on:click={() => {
-						playPlaylist();
-					}}>
-						<div class="my-auto lg:h-[7.5rem] !h-fit ml-4 grow">
-							<P class="font-inter text-white lg:text-5xl text-md !truncate">Click to play this playlist</P>
-						</div>
-					</button>
-				{/if}
-			</div>
-		</div>
-		{/if}
-		{#if selectModal}
-			<Modal title="Choose song location" bind:open={selectModal}>
-				{#await playLinks()}
-					<Spinner color="purple" size="md" class="flex mx-auto h-40 w-auto overflow-hidden" />
-				{:then links}
-					{#if playing && playing?.res?.status !== 200}
-						<P class="text-red-600">{playing.data.message}</P>
 					{/if}
-					<div class="flex flex-col gap-2">
-						<img src={links.albumCover} class="w-32 h-auto mx-auto" alt="Album cover for selected song" />
-						<P class="text-xl mx-auto my-4">{links.chosenSongName}</P>
-						{#each links.links as link}
-							{#if link.includes("spotify")}
-								<Button color="green" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button><br />
-								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Spotify</A><br />
-							{:else if link.includes("youtube")}
-								<Button color="red" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button><br />
-								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in YouTube</A><br />
-							{:else if link.includes("apple")}
-								<Button color="alternative" class="font-inter w-full text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button><br />
-								<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Apple Music</A><br />
-							{/if}
-						{/each}
-					</div>
-				{:catch}
-					<P>Something went wrong, try closing and opening again</P>
-				{/await}
-			</Modal>
-		{/if}
-
-		<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
-			{#await currentSongLoop() then}
-			<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
-				<div class="my-auto h-[7.5rem] ml-4 grow flex">
-					<div class="my-auto">
-							<P class="font-inter text-white text-3xl">{current.title || "Nothing is playing"}</P>
-							<P class="font-inter text-white text-2xl">{current.author || ""}</P>
-							<P class="font-inter text-white text-xl">{current.title ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}` : ''}</P>
-					</div>
 				</div>
-			{/await}
-			<button class="my-auto w-auto" on:click={() => lyricsModal = true}>
-				<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
-			</button>
-			<Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
-				<pre class="font-inter">{currentLyrics}</pre>
-			</Modal>
-			<button on:click={() => playPause()} class="my-auto w-auto">
-				{#await checkPlaying() then}
-					<Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
+			</div>
+			{/if}
+			{#if selectModal}
+				<Modal title="Choose song location" bind:open={selectModal}>
+					{#await playLinks()}
+						<Spinner color="purple" size="md" class="flex mx-auto h-40 w-auto overflow-hidden" />
+					{:then links}
+						{#if playing && playing?.res?.status !== 200}
+							<P class="text-red-600">{playing.data.message}</P>
+						{/if}
+						<div class="flex flex-col gap-2">
+							<img src={links.albumCover} class="w-32 h-auto mx-auto" alt="Album cover for selected song" />
+							<P class="text-xl mx-auto my-4">{links.chosenSongName}</P>
+							{#each links.links as link}
+								{#if link.includes("spotify")}
+									<Button color="green" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>Spotify</Button><br />
+									<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Spotify</A><br />
+								{:else if link.includes("youtube")}
+									<Button color="red" class="font-inter w-full" size="lg" on:click={async () => playing = await play(link)}>YouTube</Button><br />
+									<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in YouTube</A><br />
+								{:else if link.includes("apple")}
+									<Button color="alternative" class="font-inter w-full text-black" size="lg" on:click={async () => playing = await play(link)}>Apple Music</Button><br />
+									<A href={link} target="_blank" rel="noopener noreferrer" class="font-inter w-fit text-blue-500 text-center mx-auto">Open in Apple Music</A><br />
+								{/if}
+							{/each}
+						</div>
+					{:catch}
+						<P>Something went wrong, try closing and opening again</P>
+					{/await}
+				</Modal>
+			{/if}
+
+			<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
+				{#await currentSongLoop() then}
+				<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
+					<div class="my-auto h-[7.5rem] ml-4 grow flex">
+						<div class="my-auto">
+								<P class="font-inter text-white text-3xl">{current.title || "Nothing is playing"}</P>
+								<P class="font-inter text-white text-2xl">{current.author || ""}</P>
+								<P class="font-inter text-white text-xl">{current.title ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}` : ''}</P>
+						</div>
+					</div>
 				{/await}
-			</button>
-			<button on:click={() => skip()} class="my-auto mr-[2.48rem]">
-				<Icon src={Forward} class="text-white w-auto" solid size="70" />
-				<!-- <P class="font-inter text-white text-center absolute w-[70px]">0/1</P> -->
-			</button>
+				<button class="my-auto w-auto" on:click={() => lyricsModal = true}>
+					<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
+				</button>
+				<Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
+					<pre class="font-inter">{currentLyrics}</pre>
+				</Modal>
+				<button on:click={() => playPause()} class="my-auto w-auto">
+					{#await checkPlaying() then}
+						<Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
+					{/await}
+				</button>
+				<button on:click={() => skip()} class="my-auto mr-[2.48rem]">
+					<Icon src={Forward} class="text-white w-auto" solid size="70" />
+					<!-- <P class="font-inter text-white text-center absolute w-[70px]">0/1</P> -->
+				</button>
+			</div>
 		</div>
 	</div>
 {/await}
