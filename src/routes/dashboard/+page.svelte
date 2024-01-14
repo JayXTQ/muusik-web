@@ -106,8 +106,8 @@
 			return fail(res.status, { message: data.message })
 		}
 	}
-	async function currentSong() {
-		if(currentElapsed-1000 < current.durationMS && playingSong && millisToMinutesAndSeconds(currentElapsed) !== current.duration) {
+	async function currentSong(skip?: boolean) {
+		if((currentElapsed-1000 < current.durationMS && playingSong && millisToMinutesAndSeconds(currentElapsed) !== current.duration) && !skip) {
 			currentElapsed += 1000;
 			return;
 		}
@@ -135,8 +135,7 @@
 		});
 		const data = await res.json() as { message: string, success: false } | { success: true };
 		if (data.success) {
-			currentElapsed = Infinity;
-			currentSong()
+			currentSong(true)
 			return data.success;
 		} else {
 			return fail(res.status, { message: data.message })
