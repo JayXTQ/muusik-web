@@ -1,4 +1,4 @@
-# api.muusik.app
+# muusik.app
 
 This is the frontend for the muusik.app project. This will allow you to connect with the API for Muusik and manage your music with your friends.
 
