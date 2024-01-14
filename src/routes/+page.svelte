@@ -41,8 +41,8 @@
 		>
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
-			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Get started</Button><br>
-			<A class="font-inter text-3xl text-white" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Get started</Button>
+			<A class="font-inter text-3xl text-white mt-2" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
 			<Secondary class="font-inter text-3xl">or</Secondary>
 			<A class="text-white font-inter text-3xl" href="#learn-more">Learn more</A>
 		</div>
