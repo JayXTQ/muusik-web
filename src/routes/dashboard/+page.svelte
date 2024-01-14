@@ -27,7 +27,7 @@
 		Modal,
 		Spinner
 	} from 'flowbite-svelte';
-	import { Icon, Cog6Tooth, Pause, Forward, Play, ChatBubbleBottomCenterText, ArrowPath } from 'svelte-hero-icons';
+	import { Icon, Cog6Tooth, Pause, Forward, Play, ChatBubbleBottomCenterText, ArrowPath, Plus } from 'svelte-hero-icons';
 
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
@@ -78,7 +78,7 @@
 		const data = await res.json() as { message: string, success: false } | { queue: any[], history: any[], success: true };
 		if (data.success) {
 			queue = await Promise.all(data.queue.map(async (q) => { return { ...q, requestedBy: (await getUser(q.requestedBy)).username}})) || [];
-			history = data.history || [];
+			history = await Promise.all(data.history.map(async (q) => { return { ...q, requestedBy: (await getUser(q.requestedBy)).username}})) || [];;
 		}
 		else {
 			console.error(data.message);
@@ -193,9 +193,35 @@
 			}
 		}, 5000);
 	}
+	async function createPlaylist(name: string) {
+		let songs: Array<{
+            url: string;
+            metadata: {
+                name: string;
+                artist: string;
+                duration: string;
+                image: string;
+            }
+        }> = []
+		for(const song of [...history, current, ...queue]) {
+			songs.push({
+				url: song.url,
+				metadata: {
+					name: song.title,
+					artist: song.author,
+					duration: song.duration,
+					image: song.thumbnail
+				}
+			})
+		}
+		const { data, error } = await supabase.from('playlist').insert({ name, songs }).select('id').single()
+		if(error || !data) console.error(error)
+		else
+		window.open(`/playlist/${data.id}`, '_blank')
+	}
 
 	function checkPlaylist(input: string) {
-		if(input.startsWith('https://open.spotify.com/playlist/') || (input.startsWith("https://music.apple.com") && input.includes("playlist"))) return true
+		if(input.startsWith('https://open.spotify.com/playlist/') || input.startsWith(`http${dev ? '://localhost:5173' : 's://muusik.app'}/playlist/`)) return true
 		else return false
 	}
 
@@ -221,6 +247,8 @@
 
 	let selectModal = false;
 	let lyricsModal = false;
+	let createPlaylistModal = false;
+	let playlistName: string = '';
 </script>
 
 <svelte:head>
@@ -289,6 +317,18 @@
 				<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
 				>
 				<button on:click={() => shuffle()} class="p-1 m-auto"><Icon src={ArrowPath} size="40" solid class="text-white" /></button>
+				<button on:click={() => { createPlaylistModal = true; playlistName = '' }} class="p-1 m-auto"><Icon src={Plus} size="40" solid class="text-white" /></button>
+				<Modal title="Create playlist" bind:open={createPlaylistModal}>
+					<Input
+						size="lg"
+						type="text"
+						name="query"
+						placeholder="Playlist name"
+						class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
+						bind:value={playlistName}
+					/>
+					<Button color="green" class="font-inter w-full" size="lg" on:click={async () => createPlaylist(playlistName || 'Playlist')}>Create playlist</Button><br />
+				</Modal>
 			</div>
 		</div>
 		<div class="m-5">
