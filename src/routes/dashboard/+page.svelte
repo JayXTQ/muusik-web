@@ -134,9 +134,11 @@
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});
 		const data = await res.json() as { message: string, success: false } | { success: true };
-		if (data.success)
+		if (data.success) {
+			currentElapsed = Infinity;
+			currentSong()
 			return data.success;
-		else {
+		} else {
 			return fail(res.status, { message: data.message })
 		}
 	}
@@ -232,6 +234,7 @@
 			d.getUTCSeconds()
 		],
 		formatted = parts.map(s => String(s).padStart(2,'0')).join(':');
+		if(formatted === "NaN:NaN") return "00:00"
 		return formatted
 	}
 
