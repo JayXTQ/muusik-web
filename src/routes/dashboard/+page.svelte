@@ -27,10 +27,11 @@
 		Modal,
 		Spinner
 	} from 'flowbite-svelte';
-	import { Icon, Cog6Tooth, Pause, Forward, Play, ChatBubbleBottomCenterText } from 'svelte-hero-icons';
+	import { Icon, Cog6Tooth, Pause, Forward, Play, ChatBubbleBottomCenterText, ArrowPath } from 'svelte-hero-icons';
 
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
+	let shuffleTimer: NodeJS.Timeout;
 	let searchQuery: string = '';
 	let chosenUrl: string;
 	let queue: any[] = []
@@ -175,6 +176,23 @@
 		}
 	
 	}
+	async function shuffle() {
+		clearTimeout(shuffleTimer);
+		shuffleTimer = setTimeout(async () => {
+			const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/shuffle`, {
+				method: 'POST',
+				body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
+			});
+			const data = await res.json() as { message: string, success: false } | { success: true };
+			if (data.success) {
+				getQueue()
+				return data.success;
+			}
+			else {
+				return fail(res.status, { message: data.message })
+			}
+		}, 5000);
+	}
 
 	function checkPlaylist(input: string) {
 		if(input.startsWith('https://open.spotify.com/playlist/') || (input.startsWith("https://music.apple.com") && input.includes("playlist"))) return true
@@ -265,8 +283,11 @@
 					</TableBody>
 				</Table>
 			</div>
-			<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
-			>
+			<div class="flex pr-2">
+				<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
+				>
+				<button on:click={() => shuffle()} class="p-1 m-auto"><Icon src={ArrowPath} size="40" solid class="text-white" /></button>
+			</div>
 		</div>
 		<div class="m-5">
 			<Input
