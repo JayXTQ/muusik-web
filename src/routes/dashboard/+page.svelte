@@ -27,7 +27,7 @@
 		Modal,
 		Spinner
 	} from 'flowbite-svelte';
-	import { Icon, Cog6Tooth, Pause, Forward, Play } from 'svelte-hero-icons';
+	import { Icon, Cog6Tooth, Pause, Forward, Play, ChatBubbleBottomCenterText } from 'svelte-hero-icons';
 
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
@@ -37,6 +37,7 @@
 	let history: any[] = []
 	let current: any = {}
 	let currentElapsed: number = 0;
+	let currentLyrics: string = 'No lyrics found'
 	let playingSong: boolean = false;
 
 	function searchSong() {
@@ -110,14 +111,16 @@
 			return;
 		}
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`);
-		const data = await res.json() as { message: string, success: false } | { song: any, currentTrackTimeElapsed: number, success: true };
+		const data = await res.json() as { message: string, success: false } | { song: any, currentTrackTimeElapsed: number, trackLyrics: { lyrics: string }, success: true };
 		if (data.success) {
 			current = data.song;
 			currentElapsed = data.currentTrackTimeElapsed;
+			currentLyrics = data.trackLyrics.lyrics;
 		}
 		else {
 			current = {};
 			currentElapsed = 0;
+			currentLyrics = 'No lyrics found';
 		}
 	}
 	async function currentSongLoop() {
@@ -199,6 +202,7 @@
 	}
 
 	let selectModal = false;
+	let lyricsModal = false;
 </script>
 
 <svelte:head>
@@ -344,6 +348,12 @@
 					</div>
 				</div>
 			{/await}
+			<button class="my-auto w-auto" on:click={() => lyricsModal = true}>
+				<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
+			</button>
+			<Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
+				<pre class="font-inter">{currentLyrics}</pre>
+			</Modal>
 			<button on:click={() => playPause()} class="my-auto w-auto">
 				{#await checkPlaying() then}
 					<Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
