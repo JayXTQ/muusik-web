@@ -55,10 +55,14 @@
 		else return true
 	}
 	async function playLinks()  {
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-playlinks?url=${encodeURIComponent(chosenUrl)}`);
-		const data = await res.json() as { message: string, success: false } | { links: string[], albumCover: string, songName: string, success: true };
-		if(!data.success) throw fail(res.status, { message: data.message })
-		return { links: Array.isArray(data.links) ? data.links : [], albumCover: data.albumCover, chosenSongName: data.songName }
+		let res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-playlinks?url=${encodeURIComponent(chosenUrl)}`);
+		const playLinkData = await res.json() as { message: string, success: false } | { links: string[], success: true };
+		if(!playLinkData.success) throw fail(res.status, { message: playLinkData.message })
+		const links = playLinkData.links;
+		res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/song-info?url=${encodeURIComponent(chosenUrl)}`);
+		const songdata = await res.json() as { message: string, success: false } | { albumCover: string, songName: string, success: true };
+		if(!songdata.success) throw fail(res.status, { message: songdata.message })
+		return { links: Array.isArray(links) ? links : [], albumCover: songdata.albumCover, chosenSongName: songdata.songName }
 	}
 	async function play(url: string) {
 		selectModal = false;
