@@ -338,8 +338,16 @@
 			{/if}
 
 			<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
-				{#await currentSongLoop() then}
-				<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
+				{#await currentSongLoop()}
+					<div class="my-auto h-[7.5rem] ml-4 grow flex">
+						<div class="my-auto">
+								<P class="font-inter text-white text-3xl">{"Nothing is playing"}</P>
+								<P class="font-inter text-white text-2xl">{""}</P>
+								<P class="font-inter text-white text-xl">{""}</P>
+						</div>
+					</div>
+				{:then}
+					<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
 					<div class="my-auto h-[7.5rem] ml-4 grow flex">
 						<div class="my-auto">
 								<P class="font-inter text-white text-3xl">{current.title || "Nothing is playing"}</P>
