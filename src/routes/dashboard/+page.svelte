@@ -341,7 +341,7 @@
 				{#await currentSongLoop()}
 					<div class="my-auto h-[7.5rem] ml-4 grow flex">
 						<div class="my-auto">
-								<P class="font-inter text-white text-3xl">{"Nothing is playing"}</P>
+								<P class="font-inter text-white text-3xl">{""}</P>
 								<P class="font-inter text-white text-2xl">{""}</P>
 								<P class="font-inter text-white text-xl">{""}</P>
 						</div>
