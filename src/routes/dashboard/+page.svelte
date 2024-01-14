@@ -241,7 +241,9 @@
 
 <!-- <pre class="text-white">{JSON.stringify(songs, null, 4)}</pre> -->
 {#await findUser()}
-	<Spinner color="purple" size="lg" />
+	<div class="h-screen flex items-center justify-center">
+		<Spinner color="purple" class="h-80 w-auto" />
+	</div>
 {:then}
 	<button
 		><Icon
