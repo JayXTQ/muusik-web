@@ -1,7 +1,5 @@
-import { error, fail } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-
-export const ssr = false;
 
 export const load = (async ({ parent, params }) => {
     type Playlist = {
