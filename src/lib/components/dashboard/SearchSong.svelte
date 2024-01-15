@@ -8,7 +8,7 @@
     export let session: Session | null
 	export let current: any;
 
-    let searchQuery: string;
+    let searchQuery: string = '';
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
     let chosenUrl: string;
@@ -88,7 +88,7 @@
 			body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id })
 		});
 		const data = (await res.json()) as { message?: string; success: boolean };
-		if (checkCurrent()) location.reload();
+		if (!checkCurrent()) location.reload();
 		return { res, data };
 	}
 

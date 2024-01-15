@@ -14,6 +14,7 @@
 	import { fail } from '@sveltejs/kit';
 	import Shuffle from './Shuffle.svelte';
 	import CreatePlaylist from './CreatePlaylist.svelte';
+	import QueueLength from './QueueLength.svelte';
 
 	export let queue: any[] = [];
 	export let history: any[] = [];
@@ -58,11 +59,6 @@
 	async function loopGetQueue() {
 		await getQueue();
 		setTimeout(loopGetQueue, 5000);
-	}
-
-	function checkCurrent() {
-		if (JSON.stringify(current) === JSON.stringify({})) return false;
-		else return true;
 	}
 
 	export let session: Session | null;
@@ -110,23 +106,11 @@
 	</div>
 	<div class="flex pr-2">
 		{#if innerWidth >= 1024}
-			<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow"
-				>{queue.length} songs left out of {history.length + queue.length !== 0
-					? history.length + queue.length + 1
-					: checkCurrent()
-					? 1
-					: 0}</Heading
-			>
+			<QueueLength bind:current bind:history bind:queue text=" songs left out of " />
 		{:else}
-			<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow"
-				>{queue.length}/{history.length + queue.length !== 0
-					? history.length + queue.length + 1
-					: checkCurrent()
-					? 1
-					: 0}</Heading
-			>
+			<QueueLength bind:current bind:history bind:queue text="/" />
 		{/if}
-		<Shuffle {session} bind:queue bind:history />
-		<CreatePlaylist bind:queue bind:history bind:current {supabase} />
+		<Shuffle bind:session bind:queue bind:history />
+		<CreatePlaylist bind:queue bind:history bind:current bind:supabase />
 	</div>
 </div>

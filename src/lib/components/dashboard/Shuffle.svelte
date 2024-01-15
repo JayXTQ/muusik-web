@@ -35,12 +35,7 @@
 						return { ...q, requestedBy: (await getUser(q.requestedBy)).username };
 					})
 				)) || [];
-			history =
-				(await Promise.all(
-					data.history.map(async (q) => {
-						return { ...q, requestedBy: (await getUser(q.requestedBy)).username };
-					})
-				)) || [];
+			history = data.history || [];
 		} else {
 			console.error(data.message);
 		}

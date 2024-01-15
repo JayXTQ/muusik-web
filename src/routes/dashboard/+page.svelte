@@ -17,7 +17,7 @@
 		Cog6Tooth
 	} from 'svelte-hero-icons';
 
-	let current: any;
+	let current: any = {};
 	
 	async function findUser() {
 		const res = await fetch(

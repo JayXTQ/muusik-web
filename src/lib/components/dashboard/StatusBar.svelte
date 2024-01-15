@@ -71,7 +71,7 @@
         <CurrentSong current={{ title: '', author: '', duration: '' }} />
     {:then}
         <Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
-        <CurrentSong current={{ ...current, duration: current.title
+        <CurrentSong current={{ title: current.title || 'Nothing is playing', author: '', duration: current.title
             ? innerWidth >= 1024
                 ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}`
                 : `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`
