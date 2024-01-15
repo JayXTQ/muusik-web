@@ -12,13 +12,10 @@
 
 	import { Loading } from '$lib/components';
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
-	import {
-		Icon,
-		Cog6Tooth
-	} from 'svelte-hero-icons';
+	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
 
 	let current: any = {};
-	
+
 	async function findUser() {
 		const res = await fetch(
 			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(

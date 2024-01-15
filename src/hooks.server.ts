@@ -9,7 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
 		event
 	});
-	
+
 	event.locals.getSession = async () => {
 		const {
 			data: { session }

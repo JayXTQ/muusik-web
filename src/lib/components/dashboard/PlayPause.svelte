@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { dev } from "$app/environment";
-	import type { Session } from "@supabase/supabase-js";
-    import { Icon, Play, Pause } from "svelte-hero-icons";
-    import { fail } from "@sveltejs/kit";
+	import { dev } from '$app/environment';
+	import type { Session } from '@supabase/supabase-js';
+	import { Icon, Play, Pause } from 'svelte-hero-icons';
+	import { fail } from '@sveltejs/kit';
 
-    export let session: Session | null;
-    export let playingSong: boolean = false;
+	export let session: Session | null;
+	export let playingSong: boolean = false;
 
 	async function playPause() {
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/pause`, {
@@ -40,7 +40,7 @@
 </script>
 
 <button on:click={() => playPause()} class="my-auto">
-    {#await checkPlaying() then}
-        <Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
-    {/await}
+	{#await checkPlaying() then}
+		<Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
+	{/await}
 </button>

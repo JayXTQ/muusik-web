@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Session } from "@supabase/supabase-js";
-    import { Avatar } from "flowbite-svelte";
-    import { Icon, Pause, Play, Forward } from 'svelte-hero-icons';
-    import { dev } from "$app/environment";
-    import { fail } from "@sveltejs/kit";
-	import CurrentSong from "./CurrentSong.svelte";
-	import Lyrics from "./Lyrics.svelte";
-	import PlayPause from "./PlayPause.svelte";
-	import Skip from "./Skip.svelte";
+	import type { Session } from '@supabase/supabase-js';
+	import { Avatar } from 'flowbite-svelte';
+	import { Icon, Pause, Play, Forward } from 'svelte-hero-icons';
+	import { dev } from '$app/environment';
+	import { fail } from '@sveltejs/kit';
+	import CurrentSong from './CurrentSong.svelte';
+	import Lyrics from './Lyrics.svelte';
+	import PlayPause from './PlayPause.svelte';
+	import Skip from './Skip.svelte';
 
-    export let current: any = {}
-    export let session: Session | null;
+	export let current: any = {};
+	export let session: Session | null;
 	let currentElapsed: number = 0;
 	let currentLyrics: string = 'No lyrics found';
 	let playingSong: boolean;
@@ -20,7 +20,6 @@
 		author: '',
 		duration: ''
 	};
-
 
 	async function currentSong(skip?: boolean) {
 		if (
@@ -55,7 +54,7 @@
 			currentLyrics = 'No lyrics found';
 			playingSong = false;
 		}
-		if(!current || !current.title) {
+		if (!current || !current.title) {
 			current = {};
 			currentElapsed = 0;
 			currentLyrics = 'No lyrics found';
@@ -75,7 +74,7 @@
 		return formatted;
 	}
 
-    $: innerWidth = 0;
+	$: innerWidth = 0;
 	$: currentInfo = {
 		title: current.title || 'Nothing is playing',
 		author: current.author || '',
@@ -84,21 +83,21 @@
 				? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}`
 				: `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`
 			: ''
-	}
+	};
 </script>
 
 <svelte:window bind:innerWidth />
 
 <div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full max-w-[48.9rem]">
-    {#await currentSongLoop()}
-        <CurrentSong current={{ title: '', author: '', duration: '' }} />
-    {:then}
+	{#await currentSongLoop()}
+		<CurrentSong current={{ title: '', author: '', duration: '' }} />
+	{:then}
 		{#if innerWidth >= 700}
-        	<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
+			<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
 		{/if}
-        <CurrentSong bind:current={currentInfo} />
-    {/await}
-    <Lyrics bind:currentLyrics />
-    <PlayPause bind:session bind:playingSong />
-    <Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
+		<CurrentSong bind:current={currentInfo} />
+	{/await}
+	<Lyrics bind:currentLyrics />
+	<PlayPause bind:session bind:playingSong />
+	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
 </div>

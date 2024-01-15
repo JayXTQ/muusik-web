@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { Input, Modal, Spinner, Button, A, P } from "flowbite-svelte";
-    import { dev } from "$app/environment";
-	import type { Session } from "@supabase/supabase-js";
-    import { fail } from "@sveltejs/kit";
-    import type { Tracks, Songs } from "$lib/types";
+	import { Input, Modal, Spinner, Button, A, P } from 'flowbite-svelte';
+	import { dev } from '$app/environment';
+	import type { Session } from '@supabase/supabase-js';
+	import { fail } from '@sveltejs/kit';
+	import type { Tracks, Songs } from '$lib/types';
 
-    export let session: Session | null
+	export let session: Session | null;
 	export let current: any;
 
-    let searchQuery: string = '';
+	let searchQuery: string = '';
 	let songs: Tracks = [];
 	let timer: NodeJS.Timeout;
-    let chosenUrl: string;
-    let selectModal: boolean = false;
+	let chosenUrl: string;
+	let selectModal: boolean = false;
 	let playing: { res: Response; data: { message?: string; success: boolean } } | undefined;
 
 	async function playPlaylist() {
@@ -92,11 +92,11 @@
 		return { res, data };
 	}
 
-    $: if (!selectModal) {
+	$: if (!selectModal) {
 		playing = undefined;
 	}
 
-    $: if(searchQuery === '') songs = []
+	$: if (searchQuery === '') songs = [];
 </script>
 
 <Input

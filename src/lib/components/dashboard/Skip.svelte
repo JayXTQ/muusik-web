@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Session } from "@supabase/supabase-js";
-    import { Icon, Forward } from "svelte-hero-icons";
-    import { dev } from "$app/environment";
-    import { fail } from "@sveltejs/kit";
-    export let session: Session | null;
-    export let current: any;
+	import type { Session } from '@supabase/supabase-js';
+	import { Icon, Forward } from 'svelte-hero-icons';
+	import { dev } from '$app/environment';
+	import { fail } from '@sveltejs/kit';
+	export let session: Session | null;
+	export let current: any;
 	export let currentElapsed: number;
-	export let playingSong: boolean; 
+	export let playingSong: boolean;
 	export let currentLyrics: string;
 
 	async function currentSong(skip?: boolean) {
@@ -42,7 +42,7 @@
 			currentLyrics = 'No lyrics found';
 			playingSong = false;
 		}
-		if(!current || !current.title) {
+		if (!current || !current.title) {
 			current = {};
 			currentElapsed = 0;
 			currentLyrics = 'No lyrics found';
@@ -64,17 +64,16 @@
 		}
 	}
 
-    function millisToMinutesAndSeconds(millis: number) {
-        const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, millis)),
-            parts = [d.getUTCMinutes(), d.getUTCSeconds()],
-            formatted = parts.map((s) => String(s).padStart(2, '0')).join(':');
-        if (formatted === 'NaN:NaN') return '00:00';
-        return formatted;
-    }
+	function millisToMinutesAndSeconds(millis: number) {
+		const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, millis)),
+			parts = [d.getUTCMinutes(), d.getUTCSeconds()],
+			formatted = parts.map((s) => String(s).padStart(2, '0')).join(':');
+		if (formatted === 'NaN:NaN') return '00:00';
+		return formatted;
+	}
 </script>
 
-
 <button on:click={() => skip()} class="my-auto mr-[2.48rem]">
-    <Icon src={Forward} class="text-white w-auto" solid size="70" />
-    <!-- <P class="font-inter text-white text-center absolute w-[70px]">0/1</P> -->
+	<Icon src={Forward} class="text-white w-auto" solid size="70" />
+	<!-- <P class="font-inter text-white text-center absolute w-[70px]">0/1</P> -->
 </button>
