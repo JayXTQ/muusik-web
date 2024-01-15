@@ -9,9 +9,10 @@
 	<title>{data.playlist.name} - muusik.app playlists</title>
 	<meta content="{data.playlist.name} | muusik.app playlists" property="og:title" />
 	<meta
-		content="View all the songs inside of the {data.playlist.name} playlist, created via the dashboard!"
-		property="og:description"
+		content="A muuusik.app playlist, containing music like {data.playlist.songs[0].metadata.name} by {data.playlist.songs[0].metadata.artist} and {data.playlist.songs[1].metadata.name} by {data.playlist.songs[1].metadata.artist}"
+        property="og:description"
 	/>
+    <meta content="{data.playlist.songs[0].metadata.image}" property="og:image" />
 	<meta content="https://muusik.app/playlist/{data.id}" property="og:url" />
 	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
 	<meta
