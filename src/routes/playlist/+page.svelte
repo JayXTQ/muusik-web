@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { Heading, P } from 'flowbite-svelte';
+    import { A, Heading, P } from 'flowbite-svelte';
     
     export let data: PageData;
 </script>
@@ -28,4 +28,6 @@
     {#each data.playlists as playlist}
         <a href="/playlist/{playlist.id}" class="text-white text-6xl rounded-lg hover:bg-primary-200 p-5 -m-5">{playlist.name}</a>
     {/each}
+	<br>
+	<P class="text-white text-3xl">There is also some playlists shared on our <A class="text-blue-500" href="https://discord.gg/cmYTNgBnKQ">Discord Server</A> in the <A class="text-blue-500" href="https://discord.com/channels/1137357141611659284/1196397239640272947">#share-your-playlists</A> channel</P>
 </div>
