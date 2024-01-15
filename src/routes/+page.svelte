@@ -41,8 +41,14 @@
 		>
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
-			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard">Get started</Button>
-			<A class="font-inter text-3xl text-white mt-2" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard"
+				>Get started</Button
+			>
+			<A
+				class="font-inter text-3xl text-white mt-2"
+				href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands"
+				>Add the bot</A
+			>
 			<Secondary class="font-inter text-3xl">or</Secondary>
 			<A class="text-white font-inter text-3xl" href="#learn-more">Learn more</A>
 		</div>
@@ -59,7 +65,13 @@
 		</div>
 		<Components.HomeBox class="xl:w-7/12 flex items-center lg:h-[25.5rem] h-56"
 			><div class="my-auto mx-16 bg-primary-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
-				<Avatar rounded src="/gasoline.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+				<Avatar
+					rounded
+					src="/gasoline.webp"
+					class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]"
+					height="64px"
+					width="64px"
+				/>
 				<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 					<P class="font-inter text-white lg:text-5xl text-md">Gasoline</P>
 					<P class="font-inter text-white lg:text-3xl text-sm">The Weeknd</P>
@@ -79,15 +91,26 @@
 				<div
 					class="mx-8 bg-primary-100 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-200 border-[5px]"
 				>
-					<Icon src={MagnifyingGlass} class="text-[#715E5E] lg:h-[5rem] h-6 w-auto my-auto ml-[0.94rem]" />
-					<P class="text-white font-inter my-auto lg:text-4xl text-xl ml-[0.62rem]">Blinding Lights</P>
+					<Icon
+						src={MagnifyingGlass}
+						class="text-[#715E5E] lg:h-[5rem] h-6 w-auto my-auto ml-[0.94rem]"
+					/>
+					<P class="text-white font-inter my-auto lg:text-4xl text-xl ml-[0.62rem]"
+						>Blinding Lights</P
+					>
 				</div>
 				<div
 					class="mx-8 bg-primary-100 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-200 border-[5px] overflow-hidden"
 				>
 					<div class="grow my-[1.06rem]">
 						<div class="flex">
-							<Avatar rounded src="/bl1.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+							<Avatar
+								rounded
+								src="/bl1.webp"
+								class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]"
+								height="64px"
+								width="64px"
+							/>
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
 								<P class="font-inter text-white lg:text-4xl text-sm truncate">The Weeknd</P>
@@ -98,10 +121,20 @@
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
+							<img
+								class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4"
+								src="/youtube.svg"
+								alt="Youtube"
+							/>
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl2.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+							<Avatar
+								rounded
+								src="/bl2.webp"
+								class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]"
+								height="64px"
+								width="64px"
+							/>
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">City of blindi...</P>
 								<P class="font-inter text-white lg:text-4xl text-sm truncate">U2</P>
@@ -114,10 +147,20 @@
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
+							<img
+								class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4"
+								src="/youtube.svg"
+								alt="Youtube"
+							/>
 						</div>
 						<div class="flex mt-[1.06rem]">
-							<Avatar rounded src="/bl3.webp" class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]" height="64px" width="64px" />
+							<Avatar
+								rounded
+								src="/bl3.webp"
+								class="lg:h-[7.5rem] h-16 my-auto w-auto ml-[0.94rem]"
+								height="64px"
+								width="64px"
+							/>
 							<div class="my-auto lg:h-[7.5rem] h-16 ml-4 grow w-full">
 								<P class="font-inter text-white lg:text-5xl text-md truncate">Blinding Lights</P>
 								<P class="font-inter text-white lg:text-4xl text-sm truncate">The Weeknd</P>
@@ -128,7 +171,11 @@
 								src="/spotify.svg"
 								alt="Spotify"
 							/>
-							<img class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4" src="/youtube.svg" alt="Youtube" />
+							<img
+								class="text-white lg:h-14 h-6 w-auto my-auto lg:mr-10 mr-4"
+								src="/youtube.svg"
+								alt="Youtube"
+							/>
 						</div>
 					</div>
 					<div class="h-auto rounded-full bg-[#312D2D] w-4 m-2">
@@ -157,8 +204,14 @@
 </div>
 <div class="flex justify-center mt-10">
 	<div class="flex flex-col gap-2">
-		<Button class="bg-primary-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard">Interested?</Button><br>
-		<A class="font-inter text-3xl text-white mx-auto" href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands">Add the bot</A>
+		<Button class="bg-primary-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard"
+			>Interested?</Button
+		><br />
+		<A
+			class="font-inter text-3xl text-white mx-auto"
+			href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands"
+			>Add the bot</A
+		>
 	</div>
 </div>
 <div class="w-full bg-[#0E0E0E] mt-20">
@@ -169,7 +222,9 @@
 				>A free, open-source Discord music bot</P
 			>
 			<div class="flex gap-4">
-				<a href="https://github.com/JayXTQ/muusik-web"><img src="/github.svg" alt="GitHub" class="h-12" /></a><a href="https://discord.gg/TjQ7age85Y"
+				<a href="https://github.com/JayXTQ/muusik-web"
+					><img src="/github.svg" alt="GitHub" class="h-12" /></a
+				><a href="https://discord.gg/TjQ7age85Y"
 					><img src="/discord.svg" alt="Discord" class="h-12" /></a
 				><a href="https://ko-fi.com/jxtq"><img src="/kofi.webp" alt="Ko-fi" class="h-12" /></a>
 			</div>

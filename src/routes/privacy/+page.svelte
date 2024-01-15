@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PageData } from './$types';
+	import type { PageData } from './$types';
 </script>
 
 <pre class="font-inter">Privacy Policy for Muusik.app
