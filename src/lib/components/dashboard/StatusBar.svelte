@@ -15,6 +15,13 @@
 	let currentLyrics: string = 'No lyrics found';
 	let playingSong: boolean;
 
+	let currentInfo: { title: string; author: string; duration: string } = {
+		title: 'Nothing is playing',
+		author: '',
+		duration: ''
+	};
+
+
 	async function currentSong(skip?: boolean) {
 		if (
 			currentElapsed - 1000 < current.durationMS &&
@@ -46,6 +53,13 @@
 			current = {};
 			currentElapsed = 0;
 			currentLyrics = 'No lyrics found';
+			playingSong = false;
+		}
+		if(!current || !current.title) {
+			current = {};
+			currentElapsed = 0;
+			currentLyrics = 'No lyrics found';
+			playingSong = false;
 		}
 	}
 	async function currentSongLoop() {
@@ -62,6 +76,15 @@
 	}
 
     $: innerWidth = 0;
+	$: currentInfo = {
+		title: current.title || 'Nothing is playing',
+		author: current.author || '',
+		duration: current.title
+			? innerWidth >= 1024
+				? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}`
+				: `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`
+			: ''
+	}
 </script>
 
 <svelte:window bind:innerWidth />
@@ -70,12 +93,10 @@
     {#await currentSongLoop()}
         <CurrentSong current={{ title: '', author: '', duration: '' }} />
     {:then}
-        <Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
-        <CurrentSong current={{ title: current.title || 'Nothing is playing', author: '', duration: current.title
-            ? innerWidth >= 1024
-                ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}`
-                : `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`
-            : '' }} />
+		{#if innerWidth >= 700}
+        	<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
+		{/if}
+        <CurrentSong bind:current={currentInfo} />
     {/await}
     <Lyrics bind:currentLyrics />
     <PlayPause bind:session bind:playingSong />

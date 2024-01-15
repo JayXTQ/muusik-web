@@ -88,7 +88,7 @@
 			body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id })
 		});
 		const data = (await res.json()) as { message?: string; success: boolean };
-		if (!checkCurrent()) location.reload();
+		if (checkCurrent()) location.reload();
 		return { res, data };
 	}
 

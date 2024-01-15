@@ -40,6 +40,13 @@
 			current = {};
 			currentElapsed = 0;
 			currentLyrics = 'No lyrics found';
+			playingSong = false;
+		}
+		if(!current || !current.title) {
+			current = {};
+			currentElapsed = 0;
+			currentLyrics = 'No lyrics found';
+			playingSong = false;
 		}
 	}
 

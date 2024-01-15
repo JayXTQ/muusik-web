@@ -16,5 +16,5 @@
     </button>
 {/if}
 <Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
-    <pre class="font-inter">{currentLyrics}</pre>
+    <pre class="font-inter">{currentLyrics || "No lyrics found"}</pre>
 </Modal>
