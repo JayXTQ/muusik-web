@@ -31,12 +31,12 @@
 <div class="h-screen w-full flex justify-center items-center">
 	<div>
 		<Heading tag="h1" class="text-white text-center font-inter italic invisible text-7xl"
-			>The best <span class="visible opacity-[33%]">music</span> bot</Heading
+			>The best <span class="invisible md:visible opacity-[33%]">music</span> bot</Heading
 		>
-		<Heading tag="h1" class="text-white text-center font-inter text-7xl"
+		<Heading tag="h1" class="text-white text-center font-inter text-7xl p-5"
 			>The best muusik bot</Heading
 		>
-		<P class="text-white text-center font-inter mt-0.5 text-3xl"
+		<P class="text-white text-center font-inter mt-0.5 text-3xl p-5"
 			>Get that Friday feeling on all week.</P
 		>
 		<br class="h-4" />

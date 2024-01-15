@@ -251,7 +251,11 @@
 	let lyricsModal = false;
 	let createPlaylistModal = false;
 	let playlistName: string = '';
+
+    $: innerWidth = 0
 </script>
+
+<svelte:window bind:innerWidth />
 
 <svelte:head>
 	<title>Dashboard - muusik.app</title>
@@ -278,7 +282,7 @@
 	<button
 		><Icon
 			src={Cog6Tooth}
-			class="float-right m-5 text-white absolute right-0 top-0"
+			class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
 			solid
 			size="68"
 		/></button
@@ -316,8 +320,13 @@
 				</Table>
 			</div>
 			<div class="flex pr-2">
-				<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
-				>
+				{#if innerWidth >= 1024}
+					<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow">{queue.length} songs left out of {(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
+					>
+				{:else}
+					<Heading tag="h2" class="text-white font-inter h-fit m-4 w-fit grow">{queue.length}/{(history.length + queue.length) !== 0 ? (history.length + queue.length)+1 : (checkCurrent() ? 1 : 0)}</Heading
+					>
+				{/if}
 				<button on:click={() => shuffle()} class="p-1 m-auto"><Icon src={ArrowPath} size="40" solid class="text-white" /></button>
 				<button on:click={() => { createPlaylistModal = true; playlistName = '' }} class="p-1 m-auto"><Icon src={Plus} size="40" solid class="text-white" /></button>
 				<Modal title="Create playlist" bind:open={createPlaylistModal}>
@@ -421,7 +430,7 @@
 						</div>
 					</div>
 				{/await}
-				<button class="my-auto w-auto" on:click={() => lyricsModal = true}>
+				<button class="invisible sm:visible my-auto w-auto" on:click={() => lyricsModal = true}>
 					<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
 				</button>
 				<Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>

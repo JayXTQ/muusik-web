@@ -22,6 +22,21 @@ export const GET = (() => {
             <changefreq>daily</changefreq>
             <priority>0.7</priority>
         </url>
+        <url>
+            <loc>${site}/playlist</loc>
+            <changefreq>daily</changefreq>
+            <priority>0.7</priority>
+        </url>
+        <url>
+            <loc>${site}/privacy</loc>
+            <changefreq>daily</changefreq>
+            <priority>0.7</priority>
+        </url>
+        <url>
+            <loc>${site}/terms</loc>
+            <changefreq>daily</changefreq>
+            <priority>0.7</priority>
+        </url>
     </urlset>`);
 	response.headers.set('Cache-Control', 'max-age=0, s-maxage=3600');
 	response.headers.set('Content-Type', 'application/xml');

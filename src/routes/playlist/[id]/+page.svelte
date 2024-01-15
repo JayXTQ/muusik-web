@@ -4,6 +4,23 @@
     
     export let data: PageData;
 </script>
+
+<svelte:head>
+	<title>{data.playlist.name} - muusik.app playlists</title>
+	<meta content="{data.playlist.name} | muusik.app playlists" property="og:title" />
+	<meta
+		content="View all the songs inside of the {data.playlist.name} playlist, created via the dashboard!"
+		property="og:description"
+	/>
+	<meta content="https://muusik.app/playlist/{data.id}" property="og:url" />
+	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
+	<meta
+		name="robots"
+		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+	/>
+	<meta name="description" content="View all the songs inside of the {data.playlist.name} playlist, created via the dashboard!" />
+</svelte:head>
+
 <div class="p-10 space-y-10">
     <Button href="/" class="text-5xl" color="alternative">Back</Button>
     <Heading tag="h1" class="text-white text-9xl">{data.playlist.name}</Heading><br>
@@ -12,11 +29,11 @@
 This playlist can be used inside of muusik, just copy the URL and paste it into the search box</Secondary>
     {#each data.playlist.songs as song}
         <a class="flex gap-4 p-5 -m-5 hover:bg-primary-200 rounded-lg" href={song.url}>
-            <img src={song.metadata.image} alt="Song Art" class="h-72 w-auto my-auto" />
+            <img src={song.metadata.image} alt="Song Art" class="h-24 lg:h-72 w-auto my-auto" />
             <div class="my-auto mt-1 space-y-4">
-                <P class="text-white text-8xl">{song.metadata.name}</P>
-                <P class="text-white text-7xl">{song.metadata.artist}</P>
-                <P class="text-white text-6xl">{song.metadata.duration}</P>
+                <P class="text-white text-3xl lg:text-8xl">{song.metadata.name}</P>
+                <P class="text-white text-2xl lg:text-7xl">{song.metadata.artist}</P>
+                <P class="text-white text-xl lg:text-6xl">{song.metadata.duration}</P>
             </div>
         </a>
     {/each}

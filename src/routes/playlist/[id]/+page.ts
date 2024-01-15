@@ -25,5 +25,5 @@ export const load = (async ({ parent, params }) => {
     if (supabaseerror) {
         throw error(404, { message: 'Playlist not found' });
     }
-    return { playlist: data };
+    return { playlist: data, id };
 }) satisfies PageLoad;
