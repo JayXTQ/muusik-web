@@ -9,7 +9,7 @@
 	<title>{data.playlist.name} - muusik.app playlists</title>
 	<meta content="{data.playlist.name} | muusik.app playlists" property="og:title" />
 	<meta
-		content="A muuusik.app playlist, containing music like {data.playlist.songs[0].metadata.name} by {data.playlist.songs[0].metadata.artist} and {data.playlist.songs[1].metadata.name} by {data.playlist.songs[1].metadata.artist}"
+		content="A muusik.app playlist, containing music like {data.playlist.songs[0].metadata.name} by {data.playlist.songs[0].metadata.artist} and {data.playlist.songs[1].metadata.name} by {data.playlist.songs[1].metadata.artist}"
         property="og:description"
 	/>
     <meta content="{data.playlist.songs[0].metadata.image}" property="og:image" />
