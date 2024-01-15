@@ -15,7 +15,7 @@ export const load = (async ({ parent, params }) => {
 				image: string;
 			};
 		}>;
-		owner: string[];
+		owner: string;
 	};
 	const { id } = params;
 	const { supabase } = await parent();
@@ -25,6 +25,7 @@ export const load = (async ({ parent, params }) => {
 		.eq('id', id)
 		.single()) as { data: Playlist; error: any };
 	if (supabaseerror) {
+		console.log(supabaseerror)
 		throw error(404, { message: 'Playlist not found' });
 	}
 	return { playlist: data, id };

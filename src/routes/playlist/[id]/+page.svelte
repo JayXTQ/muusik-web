@@ -3,15 +3,15 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	let description = data.playlist.songs[1] ? `A muusik.app playlist, containing music like ${data.playlist.songs[0].metadata.name} by ${data.playlist.songs[0].metadata.artist} and ${data.playlist.songs[1].metadata.name} by ${data.playlist.songs[1].metadata.artist}` : `A muusik.app playlist, containing ${data.playlist.songs[0].metadata.name} by ${data.playlist.songs[0].metadata.artist}`;
 </script>
 
 <svelte:head>
 	<title>{data.playlist.name} - muusik.app playlists</title>
 	<meta content="{data.playlist.name} | muusik.app playlists" property="og:title" />
 	<meta
-		content="A muusik.app playlist, containing music like {data.playlist.songs[0].metadata
-			.name} by {data.playlist.songs[0].metadata.artist} and {data.playlist.songs[1].metadata
-			.name} by {data.playlist.songs[1].metadata.artist}"
+		content="{description}"
 		property="og:description"
 	/>
 	<meta content={data.playlist.songs[0].metadata.image} property="og:image" />
@@ -44,5 +44,5 @@
 				<P class="text-white text-xl lg:text-6xl">{song.metadata.duration}</P>
 			</div>
 		</a>
-	{/each}
+    {/each}
 </div>

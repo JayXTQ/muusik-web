@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ locals: { supabase }, params }) => {
 				image: string;
 			};
 		}>;
-		owner: string[];
+		owner: string;
 	};
 	const { id } = params;
 	const { data, error: supabaseerror } = (await supabase
