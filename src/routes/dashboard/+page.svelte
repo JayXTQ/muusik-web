@@ -290,8 +290,8 @@
 	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
 		<div class="bg-primary-100 rounded-xl mx-[5.63rem] grow max-h-[50dvh] flex-col flex">
 			<div class="flex m-4">
-				<Heading tag="h2" class="text-white font-inter grow">The Queue</Heading>
-				<Heading tag="h2" class="text-white font-inter w-fit">{session?.user.user_metadata.name}</Heading>
+				<Heading tag="h2" class="text-white font-inter grow">{#if innerWidth >= 1024}The{/if} Queue</Heading>
+				<Heading tag="h2" class="text-white font-inter w-fit">{innerWidth >= 1024 ? session?.user.user_metadata.name : ''}</Heading>
 			</div>
 			<div class="grow h-full overflow-auto">
 				<Table color="custom" class="text-white font-inter whitespace-nowrap w-full h-full">
@@ -411,7 +411,7 @@
 				</Modal>
 			{/if}
 
-			<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full xl:max-w-[48.9rem]">
+			<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full max-w-[48.9rem]">
 				{#await currentSongLoop()}
 					<div class="my-auto h-[7.5rem] ml-4 grow flex">
 						<div class="my-auto">
@@ -422,21 +422,23 @@
 					</div>
 				{:then}
 					<Avatar rounded src={current.thumbnail} class="h-[5rem] my-auto w-auto ml-[0.94rem]" />
-					<div class="my-auto h-[7.5rem] ml-4 grow flex">
+					<div class="my-auto h-[7.5rem] ml-4 grow flex w-fit max-w-[40%] md:max-w-full">
 						<div class="my-auto">
-								<P class="font-inter text-white text-3xl">{current.title || "Nothing is playing"}</P>
-								<P class="font-inter text-white text-2xl">{current.author || ""}</P>
-								<P class="font-inter text-white text-xl">{current.title ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}` : ''}</P>
+								<P class="font-inter text-white text-3xl whitespace-nowrap truncate">{current.title || "Nothing is playing"}</P>
+								<P class="font-inter text-white text-2xl whitespace-nowrap truncate">{current.author || ""}</P>
+								<P class="font-inter text-white text-xl">{current.title ? (innerWidth >= 1024 ? `${millisToMinutesAndSeconds(currentElapsed)} out of ${current.duration}` : `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`) : ''}</P>
 						</div>
 					</div>
 				{/await}
-				<button class="invisible sm:visible my-auto w-auto" on:click={() => lyricsModal = true}>
-					<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
-				</button>
+				{#if outerWidth >= 640}
+					<button class="my-auto w-auto" on:click={() => lyricsModal = true}>
+						<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
+					</button>
+				{/if}
 				<Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
 					<pre class="font-inter">{currentLyrics}</pre>
 				</Modal>
-				<button on:click={() => playPause()} class="my-auto w-auto">
+				<button on:click={() => playPause()} class="my-auto">
 					{#await checkPlaying() then}
 						<Icon src={playingSong || false ? Pause : Play} class="text-white" size="70" solid />
 					{/await}
