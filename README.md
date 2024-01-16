@@ -58,7 +58,8 @@ CREATE POLICY "Enable all for users based on owner id"
 CREATE POLICY "Enable read access for all users" 
     ON playlist
     FOR SELECT 
-    USING (true);```
+    USING (true);
+```
 
 ### Making changes
 
