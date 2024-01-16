@@ -36,6 +36,30 @@ npm run dev
 
 This will then run the project and you will be able to access it on your localhost, for instance `http://localhost:5713` (this is default for sveltekit).
 
+### Database
+
+As this project uses supabase, you will need to make sure you have added the values for your supabase project into .env then we need to establish the creation of databases. Also if you haven't already, please configure discord oauth which is explained above. For the databases, I have already constructed the SQL queries you need to make inside of supabase to create the tables and the security policies these need to have.
+
+```sql
+create table playlist (
+    id uuid primary key default gen_random_uuid(),
+    created_at timestamptz default now(),
+    name text,
+    songs jsonb[],
+    owner uuid default auth.uid()
+);
+
+alter table playlist enable row level security;
+
+CREATE POLICY "Enable all for users based on owner id" 
+    ON playlist
+    USING (auth.uid() = owner);
+
+CREATE POLICY "Enable read access for all users" 
+    ON playlist
+    FOR SELECT 
+    USING (true);```
+
 ### Making changes
 
 Once you have made your changes, commit to your fork and then you can go and make a pull request back to the main repository. Once you have done this, I will review your changes and then merge them into the main repository if the changes are good. For more information about making pull requests, check on [GitHub's Docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
