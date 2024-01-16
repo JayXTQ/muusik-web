@@ -28,7 +28,7 @@
 	{#each data.playlists as playlist}
 		<a
 			href="/playlist/{playlist.id}"
-			class="text-white text-6xl rounded-lg hover:bg-primary-200 p-5 pt-0 -m-5">{playlist.name}</a
+			class="text-white text-6xl rounded-lg hover:bg-primary-dark-200 p-5 pt-0 -m-5">{playlist.name}</a
 		><br />
 		<div class="mb-5" />
 	{/each}

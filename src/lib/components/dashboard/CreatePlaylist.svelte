@@ -55,7 +55,7 @@
 		type="text"
 		name="query"
 		placeholder="Playlist name"
-		class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
+		class="bg-primary-dark-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-dark-200 border-4 w-full xl:max-w-[48.9rem]"
 		bind:value={playlistName}
 	/>
 	<Button

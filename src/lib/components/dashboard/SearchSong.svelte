@@ -104,13 +104,13 @@
 	type="text"
 	name="query"
 	placeholder="Search"
-	class="bg-primary-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-200 border-4 w-full xl:max-w-[48.9rem]"
+	class="bg-primary-dark-100 text-white mx-auto rounded-xl mt-8 font-inter border-primary-dark-200 border-4 w-full xl:max-w-[48.9rem]"
 	on:input={() => searchSong()}
 	bind:value={searchQuery}
 />
 {#if songs.length !== 0 || checkPlaylist(searchQuery)}
 	<div
-		class="flex mx-auto bg-primary-100 max-h-40 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-auto mt-5"
+		class="flex mx-auto bg-primary-dark-100 max-h-40 lg:max-h-[24.5625rem] rounded-[1.25rem] border-primary-dark-200 border-[5px] w-full xl:max-w-[48.9rem] overflow-y-auto overflow-x-auto mt-5"
 	>
 		<div>
 			{#if !checkPlaylist(searchQuery)}

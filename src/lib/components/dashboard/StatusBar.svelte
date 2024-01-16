@@ -88,7 +88,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="bg-primary-300 mx-auto flex rounded-[0.625rem] mt-8 w-full max-w-[48.9rem]">
+<div class="bg-primary-dark-300 mx-auto flex rounded-[0.625rem] mt-8 w-full max-w-[48.9rem]">
 	{#await currentSongLoop()}
 		<CurrentSong current={{ title: '', author: '', duration: '' }} />
 	{:then}

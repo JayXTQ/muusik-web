@@ -36,7 +36,7 @@
 		the URL and paste it into the search box</Secondary
 	>
 	{#each data.playlist.songs as song}
-		<a class="flex gap-4 p-5 -m-5 hover:bg-primary-200 rounded-lg" href={song.url}>
+		<a class="flex gap-4 p-5 -m-5 hover:bg-primary-dark-200 rounded-lg" href={song.url}>
 			<img src={song.metadata.image} alt="Song Art" class="h-24 lg:h-72 w-auto my-auto" />
 			<div class="my-auto mt-1 space-y-4">
 				<P class="text-white text-3xl lg:text-8xl">{song.metadata.name}</P>

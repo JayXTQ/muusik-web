@@ -69,7 +69,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="bg-primary-100 rounded-xl mx-[5.63rem] grow max-h-[50dvh] flex-col flex">
+<div class="bg-primary-dark-100 rounded-xl mx-[5.63rem] grow max-h-[50dvh] flex-col flex">
 	<div class="flex m-4">
 		<Heading tag="h2" class="text-white font-inter grow"
 			>{#if innerWidth >= 1024}The{/if} Queue</Heading

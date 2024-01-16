@@ -41,7 +41,7 @@
 		>
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
-			<Button class="bg-primary-400 font-inter text-3xl" size="xl" href="/dashboard"
+			<Button class="bg-primary-dark-400 font-inter text-3xl" size="xl" href="/dashboard"
 				>Get started</Button
 			>
 			<A
@@ -64,7 +64,7 @@
 			>
 		</div>
 		<Components.HomeBox class="xl:w-7/12 flex items-center lg:h-[25.5rem] h-56"
-			><div class="my-auto mx-16 bg-primary-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
+			><div class="my-auto mx-16 bg-primary-dark-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
 				<Avatar
 					rounded
 					src="/gasoline.webp"
@@ -89,7 +89,7 @@
 		<Components.HomeBox class="xl:w-7/12 flex flex-col items-center lg:h-[34.875rem] h-[25rem]"
 			><div class="my-auto w-full space-y-[0.81rem]">
 				<div
-					class="mx-8 bg-primary-100 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-200 border-[5px]"
+					class="mx-8 bg-primary-dark-100 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-dark-200 border-[5px]"
 				>
 					<Icon
 						src={MagnifyingGlass}
@@ -100,7 +100,7 @@
 					>
 				</div>
 				<div
-					class="mx-8 bg-primary-100 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-200 border-[5px] overflow-hidden"
+					class="mx-8 bg-primary-dark-100 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-dark-200 border-[5px] overflow-hidden"
 				>
 					<div class="grow my-[1.06rem]">
 						<div class="flex">
@@ -204,7 +204,7 @@
 </div>
 <div class="flex justify-center mt-10">
 	<div class="flex flex-col gap-2">
-		<Button class="bg-primary-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard"
+		<Button class="bg-primary-dark-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard"
 			>Interested?</Button
 		><br />
 		<A
