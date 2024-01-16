@@ -9,7 +9,7 @@
 	<meta content="muusik.app" property="og:title" />
 	<meta content="Muusik, an open-source Discord music bot" property="og:description" />
 	<meta content="https://muusik.app/" property="og:url" />
-	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
+	<meta content="#562353" data-react-helmet="true" name="theme-color" />
 	<meta
 		name="robots"
 		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"

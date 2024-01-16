@@ -16,7 +16,7 @@
 	/>
 	<meta content={data.playlist.songs[0].metadata.image} property="og:image" />
 	<meta content="https://muusik.app/playlist/{data.id}" property="og:url" />
-	<meta content="#3A015C" data-react-helmet="true" name="theme-color" />
+	<meta content="#562353" data-react-helmet="true" name="theme-color" />
 	<meta
 		name="robots"
 		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
