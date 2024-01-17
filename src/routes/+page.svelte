@@ -23,7 +23,7 @@
 <div class="w-full p-5 bg-red-600">
 	<P class="text-white font-inter text-center"
 		>Hello, currently this is still in development, but check out our Discord <A
-			href="https://discord.gg/TjQ7age85Y"
+			href="/discord"
 			class="text-blue-500">here</A
 		>. It still works, just may not be up to standards</P
 	>
@@ -46,7 +46,7 @@
 			>
 			<A
 				class="font-inter text-3xl text-white mt-2"
-				href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands"
+				href="/invite"
 				>Add the bot</A
 			>
 			<Secondary class="font-inter text-3xl">or</Secondary>
@@ -209,7 +209,7 @@
 		><br />
 		<A
 			class="font-inter text-3xl text-white mx-auto"
-			href="https://discord.com/api/oauth2/authorize?client_id=1137124050792087682&permissions=36702208&scope=bot+applications.commands"
+			href="/invite"
 			>Add the bot</A
 		>
 	</div>
@@ -224,7 +224,7 @@
 			<div class="flex gap-4">
 				<a href="https://github.com/JayXTQ/muusik-web"
 					><img src="/github.svg" alt="GitHub" class="h-12" /></a
-				><a href="https://discord.gg/TjQ7age85Y"
+				><a href="/discord"
 					><img src="/discord.svg" alt="Discord" class="h-12" /></a
 				><a href="https://ko-fi.com/jxtq"><img src="/kofi.webp" alt="Ko-fi" class="h-12" /></a>
 			</div>
