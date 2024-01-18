@@ -13,8 +13,9 @@
 	import { Loading } from '$lib/components';
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
 	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
+	import type { APIChannel, APITrack } from '$lib/types.js';
 
-	let current: any = {};
+	let current: APITrack = {};
 
 	async function findUser() {
 		const res = await fetch(
@@ -24,9 +25,10 @@
 		);
 		const data = (await res.json()) as
 			| { message: string; success: false }
-			| { user: any; success: true };
-		if (data.success) return data.success;
-		else {
+			| { channel: APIChannel; success: true };
+		if (data.success) {
+			return data.success;
+		} else {
 			return fail(res.status, { message: data.message });
 		}
 	}

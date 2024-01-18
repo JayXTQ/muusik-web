@@ -1,12 +1,13 @@
 <script lang="ts">
+	import type { APITrack } from '$lib/types';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import { Modal, Input, Button } from 'flowbite-svelte';
 	import { Icon, Plus } from 'svelte-hero-icons';
 
 	export let supabase: SupabaseClient;
-	export let history: any[];
-	export let queue: any[];
-	export let current: any;
+	export let history: APITrack[];
+	export let queue: APITrack[];
+	export let current: APITrack;
 
 	let createPlaylistModal = false;
 	let playlistName = '';
@@ -23,12 +24,12 @@
 		}> = [];
 		for (const song of [...history, current, ...queue]) {
 			songs.push({
-				url: song.url,
+				url: song.url as string,
 				metadata: {
-					name: song.title,
-					artist: song.author,
-					duration: song.duration,
-					image: song.thumbnail
+					name: song.title as string,
+					artist: song.author as string,
+					duration: song.duration as string,
+					image: song.thumbnail as string
 				}
 			});
 		}

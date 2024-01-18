@@ -3,10 +3,11 @@
 	import { dev } from '$app/environment';
 	import type { Session } from '@supabase/supabase-js';
 	import { fail } from '@sveltejs/kit';
-	import type { Tracks, Songs } from '$lib/types';
+	import type { Tracks, Songs, APITrack } from '$lib/types';
+	import { checkExists } from '$lib/utils';
 
 	export let session: Session | null;
-	export let current: any;
+	export let current: APITrack;
 
 	let searchQuery: string = '';
 	let songs: Tracks = [];
@@ -21,7 +22,7 @@
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id, url: searchQuery })
 		});
 		const data = (await res.json()) as { message: string; success: false } | { success: true };
-		if (checkCurrent()) location.reload();
+		if (checkExists(current)) location.reload();
 		if (data.success) return data.success;
 		else {
 			return fail(res.status, { message: data.message });
@@ -50,10 +51,6 @@
 				songs = data.tracks.track.slice(0, 5);
 			}
 		}, 500);
-	}
-	function checkCurrent() {
-		if (JSON.stringify(current) === JSON.stringify({})) return false;
-		else return true;
 	}
 	async function playLinks() {
 		let res = await fetch(
@@ -88,7 +85,7 @@
 			body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id })
 		});
 		const data = (await res.json()) as { message?: string; success: boolean };
-		if (checkCurrent()) location.reload();
+		if (checkExists(current)) location.reload();
 		return { res, data };
 	}
 

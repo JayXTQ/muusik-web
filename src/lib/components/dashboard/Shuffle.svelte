@@ -3,43 +3,15 @@
 	import { Icon, ArrowPath } from 'svelte-hero-icons';
 	import { dev } from '$app/environment';
 	import { fail } from '@sveltejs/kit';
+	import { getQueue } from '$lib/utils';
+	import type { APITrack } from '$lib/types';
+
 	let shuffleTimer: NodeJS.Timeout;
 
 	export let session: Session | null;
-	export let queue: any[];
-	export let history: any[];
-
-	async function getUser(user: string) {
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-user?user=${user}`);
-		const data = (await res.json()) as
-			| { message: string; success: false }
-			| { user: any; success: true };
-		if (data.success) return data.user;
-		else {
-			return fail(res.status, { message: data.message });
-		}
-	}
-	async function getQueue() {
-		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/queue?user=${encodeURIComponent(
-				session?.user.user_metadata.provider_id
-			)}`
-		);
-		const data = (await res.json()) as
-			| { message: string; success: false }
-			| { queue: any[]; history: any[]; success: true };
-		if (data.success) {
-			queue =
-				(await Promise.all(
-					data.queue.map(async (q) => {
-						return { ...q, requestedBy: (await getUser(q.requestedBy)).username };
-					})
-				)) || [];
-			history = data.history || [];
-		} else {
-			console.error(data.message);
-		}
-	}
+	export let queue: APITrack[];
+	export let history: APITrack[];
+	
 	async function shuffle() {
 		clearTimeout(shuffleTimer);
 		shuffleTimer = setTimeout(async () => {
@@ -49,7 +21,11 @@
 			});
 			const data = (await res.json()) as { message: string; success: false } | { success: true };
 			if (data.success) {
-				getQueue();
+				const ret = await getQueue(session);
+				if (ret) {
+					queue = ret.queue;
+					history = ret.history;
+				}
 				return data.success;
 			} else {
 				return fail(res.status, { message: data.message });

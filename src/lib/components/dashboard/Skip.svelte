@@ -3,52 +3,14 @@
 	import { Icon, Forward } from 'svelte-hero-icons';
 	import { dev } from '$app/environment';
 	import { fail } from '@sveltejs/kit';
+	import { currentSong } from '$lib/utils';
+	import type { APITrack } from '$lib/types';
+
 	export let session: Session | null;
-	export let current: any;
+	export let current: APITrack;
 	export let currentElapsed: number;
 	export let playingSong: boolean;
 	export let currentLyrics: string;
-
-	async function currentSong(skip?: boolean) {
-		if (
-			currentElapsed - 1000 < current.durationMS &&
-			playingSong &&
-			millisToMinutesAndSeconds(currentElapsed) !== current.duration &&
-			!skip
-		) {
-			currentElapsed += 1000;
-			return;
-		}
-		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(
-				session?.user.user_metadata.provider_id
-			)}`
-		);
-		const data = (await res.json()) as
-			| { message: string; success: false }
-			| {
-					song: any;
-					currentTrackTimeElapsed: number;
-					trackLyrics: { lyrics: string };
-					success: true;
-			  };
-		if (data.success) {
-			current = data.song;
-			currentElapsed = data.currentTrackTimeElapsed;
-			currentLyrics = data.trackLyrics.lyrics;
-		} else {
-			current = {};
-			currentElapsed = 0;
-			currentLyrics = 'No lyrics found';
-			playingSong = false;
-		}
-		if (!current || !current.title) {
-			current = {};
-			currentElapsed = 0;
-			currentLyrics = 'No lyrics found';
-			playingSong = false;
-		}
-	}
 
 	async function skip() {
 		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/skip`, {
@@ -57,19 +19,15 @@
 		});
 		const data = (await res.json()) as { message: string; success: false } | { success: true };
 		if (data.success) {
-			currentSong(true);
+			const ret = await currentSong(session, current, currentElapsed, playingSong, true);
+			current = ret.current;
+			currentElapsed = ret.currentElapsed;
+			playingSong = ret.playingSong;
+			if(ret.currentLyrics) currentLyrics = ret.currentLyrics;
 			return data.success;
 		} else {
 			return fail(res.status, { message: data.message });
 		}
-	}
-
-	function millisToMinutesAndSeconds(millis: number) {
-		const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, millis)),
-			parts = [d.getUTCMinutes(), d.getUTCSeconds()],
-			formatted = parts.map((s) => String(s).padStart(2, '0')).join(':');
-		if (formatted === 'NaN:NaN') return '00:00';
-		return formatted;
 	}
 </script>
 

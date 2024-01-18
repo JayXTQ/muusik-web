@@ -1,15 +1,14 @@
 <script lang="ts">
 	import type { Session } from '@supabase/supabase-js';
 	import { Avatar } from 'flowbite-svelte';
-	import { Icon, Pause, Play, Forward } from 'svelte-hero-icons';
-	import { dev } from '$app/environment';
-	import { fail } from '@sveltejs/kit';
 	import CurrentSong from './CurrentSong.svelte';
 	import Lyrics from './Lyrics.svelte';
 	import PlayPause from './PlayPause.svelte';
 	import Skip from './Skip.svelte';
+	import { currentSong as currentSongUtils, millisToMinutesAndSeconds } from '$lib/utils';
+	import type { APITrack } from '$lib/types';
 
-	export let current: any = {};
+	export let current: APITrack = {};
 	export let session: Session | null;
 	let currentElapsed: number = 0;
 	let currentLyrics: string = 'No lyrics found';
@@ -22,56 +21,15 @@
 	};
 
 	async function currentSong(skip?: boolean) {
-		if (
-			currentElapsed - 1000 < current.durationMS &&
-			playingSong &&
-			millisToMinutesAndSeconds(currentElapsed) !== current.duration &&
-			!skip
-		) {
-			currentElapsed += 1000;
-			return;
-		}
-		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(
-				session?.user.user_metadata.provider_id
-			)}`
-		);
-		const data = (await res.json()) as
-			| { message: string; success: false }
-			| {
-					song: any;
-					currentTrackTimeElapsed: number;
-					trackLyrics: { lyrics: string };
-					success: true;
-			  };
-		if (data.success) {
-			current = data.song;
-			currentElapsed = data.currentTrackTimeElapsed;
-			currentLyrics = data.trackLyrics.lyrics;
-		} else {
-			current = {};
-			currentElapsed = 0;
-			currentLyrics = 'No lyrics found';
-			playingSong = false;
-		}
-		if (!current || !current.title) {
-			current = {};
-			currentElapsed = 0;
-			currentLyrics = 'No lyrics found';
-			playingSong = false;
-		}
+		const ret = await currentSongUtils(session, current, currentElapsed, playingSong, skip);
+		current = ret.current;
+		currentElapsed = ret.currentElapsed;
+		playingSong = ret.playingSong;
+		if (ret.currentLyrics) currentLyrics = ret.currentLyrics;
 	}
 	async function currentSongLoop() {
 		await currentSong();
 		setTimeout(currentSongLoop, 1000);
-	}
-
-	function millisToMinutesAndSeconds(millis: number) {
-		const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, millis)),
-			parts = [d.getUTCMinutes(), d.getUTCSeconds()],
-			formatted = parts.map((s) => String(s).padStart(2, '0')).join(':');
-		if (formatted === 'NaN:NaN') return '00:00';
-		return formatted;
 	}
 
 	$: innerWidth = 0;
