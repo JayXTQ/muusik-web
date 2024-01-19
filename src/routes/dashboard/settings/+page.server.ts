@@ -23,7 +23,7 @@ export const actions: Actions = {
                 success: true; owner: string; guild: string;
             };
             if(!data_.success) return;
-            if(data_.guild !== session.user.user_metadata.provider_id){
+            if(data_.owner !== session.user.user_metadata.provider_id){
                 return;
             }
             if(guildoptions.api){
@@ -35,12 +35,8 @@ export const actions: Actions = {
                 };
                 if(!data_.success) return;
             }
-            const { data, error } = await locals.supabase.from('guilds').select('id').eq('id', data_.guild).single()
-            if(error || !data) {
-                await locals.supabase.from('guilds').insert({ id: data_.guild, settings: guildoptions })
-            } else {
-                await locals.supabase.from('guilds').update({ settings: guildoptions }).eq('id', data_.guild)
-            }
+            const { data, error } = await locals.supabase.from('guilds').upsert({ id: data_.guild, settings: guildoptions }, { onConflict: 'id' })
+            if(error) console.log(error)
         }
     }
 };

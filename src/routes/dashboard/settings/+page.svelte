@@ -32,24 +32,32 @@
     }
 
     async function guildSettings(){
-        const { data, error } = await supabase.from('guilds').select('settings').eq('id', BigInt(guildId)).single() as { data: { settings: { api: string } }, error: any };
+        const { data, error } = await supabase.from('guilds').select('settings').eq('id', guildId).single() as { data: { settings: { api: string } }, error: any };
         if(error){
-            console.error(error);
+            guildsettings = {
+                api: 'https://api.muusik.app'
+            }
         } else {
-            guildsettings = data.settings;
+            guildsettings = {
+                api: data.settings.api || 'https://api.muusik.app'
+            };
         }
     }
 </script>
 
 <div class="flex">
     <div class="mx-auto p-10 space-y-4">
-        <Heading tag="h1">Settings</Heading>
-        <form method="POST">
+        <Button href="/dashboard" color="purple">Back</Button>
+        <Heading tag="h1" class="text-white">Settings</Heading>
+        <form method="POST" class="space-y-4">
             {#await getOwner() then}
                 {#if owner}
                     {#await guildSettings() then}
-                        <Heading tag="h2">Server Settings</Heading>
-                        <Label>API <strong>Only change this if you know what you are doing!</strong><Input type="text" value={guildsettings.api} name="guildapi" /></Label>
+                        <Heading tag="h2" class="text-white">Server Settings</Heading>
+                        <Label class="whitespace-pre-line text-white mb-2">API 
+<strong>Only change this if you know what you are doing!</strong>
+                            <Input type="text" value={guildsettings.api} name="guildapi" />
+                        </Label>
                     {/await}
                 {/if}
             {/await}
