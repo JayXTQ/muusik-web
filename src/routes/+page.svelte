@@ -20,51 +20,43 @@
 	/>
 </svelte:head>
 
-<div class="w-full p-5 bg-red-600">
-	<P class="text-white font-inter text-center"
-		>Hello, currently this is still in development, but check out our Discord <A
-			href="/discord"
-			class="text-blue-500">here</A
-		>. It still works, just may not be up to standards</P
-	>
-</div>
 <div class="h-screen w-full flex justify-center items-center">
 	<div>
-		<Heading tag="h1" class="text-white text-center font-inter italic invisible text-7xl"
+		<Heading tag="h1" class="dark:text-white text-center font-inter italic invisible text-7xl"
 			>The best <span class="invisible md:visible opacity-[33%]">music</span> bot</Heading
 		>
-		<Heading tag="h1" class="text-white text-center font-inter text-7xl p-5"
+		<Heading tag="h1" class="dark:text-white text-center font-inter text-7xl p-5"
 			>The best muusik bot</Heading
 		>
-		<P class="text-white text-center font-inter mt-0.5 text-3xl p-5"
+		<P class="dark:text-white text-center font-inter mt-0.5 text-3xl p-5"
 			>Get that Friday feeling on all week.</P
 		>
 		<br class="h-4" />
 		<div class="flex flex-col items-center gap-1">
-			<Button class="bg-primary-dark-400 font-inter text-3xl" size="xl" href="/dashboard"
+			<Button class="bg-primary-light-350 dark:bg-primary-dark-400 font-inter text-3xl" size="xl" href="/dashboard"
 				>Get started</Button
 			>
 			<A
-				class="font-inter text-3xl text-white mt-2"
+				class="font-inter text-3xl dark:text-white mt-2"
 				href="/invite"
 				>Add the bot</A
 			>
 			<Secondary class="font-inter text-3xl">or</Secondary>
-			<A class="text-white font-inter text-3xl" href="#learn-more">Learn more</A>
+			<A class="dark:text-white font-inter text-3xl" href="#learn-more">Learn more</A>
 		</div>
 	</div>
 </div>
 <div class="m-[2rem] lg:space-y-[14.81rem] space-y-20">
 	<div class="gap-[1.38rem] flex xl:flex-row flex-col" id="learn-more">
 		<div class="xl:w-5/12">
-			<Heading tag="h2" class="text-white font-inter text-5xl">Personal DJ</Heading>
+			<Heading tag="h2" class="dark:text-white font-inter text-5xl">Personal DJ</Heading>
 			<br />
-			<P class="text-white font-inter text-4xl"
+			<P class="dark:text-white font-inter text-4xl"
 				>Have a song in mind? Give it to us via your dashboard and we’ll do the rest.</P
 			>
 		</div>
 		<Components.HomeBox class="xl:w-7/12 flex items-center lg:h-[25.5rem] h-56"
-			><div class="my-auto mx-16 bg-primary-dark-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
+			><div class="my-auto mx-16 bg-primary-light-300 dark:bg-primary-dark-300 w-full lg:h-[9.5rem] h-20 flex rounded-[0.625rem]">
 				<Avatar
 					rounded
 					src="/gasoline.webp"
@@ -89,7 +81,7 @@
 		<Components.HomeBox class="xl:w-7/12 flex flex-col items-center lg:h-[34.875rem] h-[25rem]"
 			><div class="my-auto w-full space-y-[0.81rem]">
 				<div
-					class="mx-8 bg-primary-dark-100 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-dark-200 border-[5px]"
+					class="mx-8 bg-primary-light-250 dark:bg-primary-dark-250 w-auto lg:h-[7.625rem] h-12 flex rounded-[1.25rem] border-primary-light-350 dark:border-primary-dark-350 border-[5px]"
 				>
 					<Icon
 						src={MagnifyingGlass}
@@ -100,7 +92,7 @@
 					>
 				</div>
 				<div
-					class="mx-8 bg-primary-dark-100 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-dark-200 border-[5px] overflow-hidden"
+					class="mx-8 bg-primary-light-250 dark:bg-primary-dark-250 w-auto lg:h-[24.5625rem] rounded-[1.25rem] flex border-primary-light-350 dark:border-primary-dark-350 border-[5px] overflow-hidden"
 				>
 					<div class="grow my-[1.06rem]">
 						<div class="flex">
@@ -185,40 +177,40 @@
 			</div></Components.HomeBox
 		>
 		<div class="xl:w-5/12">
-			<Heading tag="h2" class="text-white font-inter text-5xl lg:text-right">Quick Search</Heading>
+			<Heading tag="h2" class="dark:text-white font-inter text-5xl lg:text-right">Quick Search</Heading>
 			<br />
-			<P class="text-white font-inter text-4xl lg:text-right"
+			<P class="dark:text-white font-inter text-4xl lg:text-right"
 				>We have lots of songs on multiple platforms. Search a song, choose the platform and play</P
 			>
 		</div>
 	</div>
 </div>
 <div class="mt-10 m-8">
-	<Heading tag="h2" class="text-inter text-white text-6xl">Other features</Heading>
+	<Heading tag="h2" class="text-inter dark:text-white text-6xl">Other features</Heading>
 	<List list="disc" class="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4">
-		<Li class="text-4xl font-inter text-white">LastFM Integration</Li>
-		<Li class="text-4xl font-inter text-white">Find only the best quality</Li>
-		<Li class="text-4xl font-inter text-white">Premium features, for free</Li>
-		<Li class="text-4xl font-inter text-white">Seamless connection</Li>
+		<Li class="text-4xl font-inter dark:text-white">LastFM Integration</Li>
+		<Li class="text-4xl font-inter dark:text-white">Find only the best quality</Li>
+		<Li class="text-4xl font-inter dark:text-white">Premium features, for free</Li>
+		<Li class="text-4xl font-inter dark:text-white">Seamless connection</Li>
 	</List>
 </div>
 <div class="flex justify-center mt-10">
 	<div class="flex flex-col gap-2">
-		<Button class="bg-primary-dark-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard"
+		<Button class="bg-primary-light-400 dark:bg-primary-dark-400 font-inter text-3xl mx-auto" size="xl" href="/dashboard"
 			>Interested?</Button
 		><br />
 		<A
-			class="font-inter text-3xl text-white mx-auto"
+			class="font-inter text-3xl dark:text-white mx-auto"
 			href="/invite"
 			>Add the bot</A
 		>
 	</div>
 </div>
-<div class="w-full bg-[#0E0E0E] mt-20">
+<div class="w-full bg-primary-light-50 dark:bg-primary-dark-50 mt-20">
 	<div class="flex mx-24 py-4">
 		<div class="grow space-y-2">
-			<Heading tag="h3" class="text-inter text-white text-5xl">Muusik</Heading>
-			<P class="text-inter text-white text-2xl max-w-[25rem]"
+			<Heading tag="h3" class="text-inter dark:text-white text-5xl">Muusik</Heading>
+			<P class="text-inter dark:text-white text-2xl max-w-[25rem]"
 				>A free, open-source Discord music bot</P
 			>
 			<div class="flex gap-4">
@@ -230,8 +222,8 @@
 			</div>
 		</div>
 		<div class="flex flex-col gap-2 my-auto">
-			<A class="font-inter text-white text-xl" href="/terms">Terms and Conditions</A>
-			<A class="font-inter text-white text-xl" href="/privacy">Privacy Policy</A>
+			<A class="font-inter dark:text-white text-xl" href="/terms">Terms and Conditions</A>
+			<A class="font-inter dark:text-white text-xl" href="/privacy">Privacy Policy</A>
 		</div>
 	</div>
 </div>

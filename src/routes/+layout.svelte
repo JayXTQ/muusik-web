@@ -3,6 +3,7 @@
 
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { DarkMode } from 'flowbite-svelte';
 
 	export let data;
 
@@ -21,5 +22,7 @@
 		return () => subscription.unsubscribe();
 	});
 </script>
+
+<DarkMode class="absolute top-5 left-5" size="lg" />
 
 <slot />

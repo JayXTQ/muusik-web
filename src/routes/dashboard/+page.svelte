@@ -50,7 +50,6 @@
 	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
 </svelte:head>
 
-<!-- <pre class="text-white">{JSON.stringify(songs, null, 4)}</pre> -->
 {#await findUser()}
 	<Loading />
 {:then}

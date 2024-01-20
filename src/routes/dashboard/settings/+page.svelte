@@ -48,7 +48,7 @@
 <div class="flex">
     <div class="mx-auto p-10 space-y-4">
         <Button href="/dashboard" color="purple">Back</Button>
-        <Heading tag="h1" class="text-white">Settings</Heading>
+        <Heading tag="h1" class="dark:text-white">Settings</Heading>
         <!-- <form method="POST" class="space-y-4">
             {#await getOwner() then}
                 {#if owner}
@@ -63,6 +63,6 @@
             {/await}
             <Button type="submit" color="purple">Save</Button>
         </form> -->
-        <Button on:click={() => supabase.auth.signOut()}>Logout</Button>
+        <Button color="purple" on:click={() => supabase.auth.signOut()}>Logout</Button>
     </div>
 </div>

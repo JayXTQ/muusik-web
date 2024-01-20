@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 </script>
 
-<pre class="font-inter">
+<pre class="font-inter dark:text-white m-10 mt-20 whitespace-pre-wrap">
 Terms and Conditions for Muusik.app
 
 Effective Date: January 12, 2024
