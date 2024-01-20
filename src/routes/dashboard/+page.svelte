@@ -13,9 +13,10 @@
 	import { Loading } from '$lib/components';
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
 	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
-	import type { APIChannel, APITrack } from '$lib/types.js';
+	import type { APIChannel, APITrack, Updates } from '$lib/types.js';
 
 	let current: APITrack = {};
+	let updates: Updates = null;
 
 	async function findUser() {
 		const res = await fetch(
@@ -31,6 +32,26 @@
 		} else {
 			return fail(res.status, { message: data.message });
 		}
+	}
+
+	async function getUpdates() {
+		const res = await fetch(
+			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/updates?user=${encodeURIComponent(
+				session?.user.user_metadata.provider_id
+			)}`
+		);
+		const data = (await res.json()) as
+			| { message: string; success: false }
+			| { updates: { track: boolean; volume: boolean; queue: boolean; paused: boolean; }; success: true };
+		if (data.success) {
+			updates = data.updates;
+		} else {
+			updates = null;
+		}
+	}
+	async function getUpdatesLoop() {
+		await getUpdates();
+		setTimeout(getUpdatesLoop, 1000);
 	}
 </script>
 
@@ -53,19 +74,23 @@
 {#await findUser()}
 	<Loading />
 {:then}
-	<a href="/dashboard/settings"
-		><Icon
-			src={Cog6Tooth}
-			class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
-			solid
-			size="68"
-		/></a
-	>
-	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
-		<Queue bind:session bind:supabase bind:current />
-		<div class="m-5">
-			<SearchSong bind:session bind:current />
-			<StatusBar bind:session bind:current />
+	{#await getUpdatesLoop()}
+		<Loading />
+	{:then} 
+		<a href="/dashboard/settings"
+			><Icon
+				src={Cog6Tooth}
+				class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
+				solid
+				size="68"
+			/></a
+		>
+		<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
+			<Queue bind:session bind:supabase bind:current bind:updates />
+			<div class="m-5">
+				<SearchSong bind:session bind:current />
+				<StatusBar bind:session bind:current bind:updates />
+			</div>
 		</div>
-	</div>
+	{/await}
 {/await}

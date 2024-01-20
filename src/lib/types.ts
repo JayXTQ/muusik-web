@@ -80,3 +80,5 @@ export type APIUser = {
 	tag: string;
 	username: string;
 }
+
+export type Updates = { track: boolean; volume: boolean; queue: boolean; paused: boolean; } | null;

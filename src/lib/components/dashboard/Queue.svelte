@@ -10,13 +10,11 @@
 		TableHeadCell,
 		Spinner
 	} from 'flowbite-svelte';
-	import { dev } from '$app/environment';
-	import { fail } from '@sveltejs/kit';
 	import Shuffle from './Shuffle.svelte';
 	import CreatePlaylist from './CreatePlaylist.svelte';
 	import QueueLength from './QueueLength.svelte';
 	import { getQueue as getQueueUtils } from '$lib/utils';
-	import type { APITrack } from '$lib/types';
+	import type { APITrack, Updates } from '$lib/types';
 
 	export let queue: APITrack[] = [];
 	export let history: APITrack[] = [];
@@ -29,13 +27,14 @@
 			history = ret.history;
 		}
 	}
-	async function loopGetQueue() {
-		await getQueue();
-		setTimeout(loopGetQueue, 5000);
-	}
 
 	export let session: Session | null;
 	export let supabase: SupabaseClient;
+	export let updates: Updates;
+
+	$: if(updates?.queue){
+		getQueue();
+	}
 
 	$: innerWidth = 0;
 </script>
@@ -61,7 +60,7 @@
 				<TableHeadCell>Added By</TableHeadCell>
 			</TableHead>
 			<TableBody>
-				{#await loopGetQueue()}
+				{#await getQueue()}
 					<Spinner color="purple" />
 				{:then}
 					{#each queue as song}

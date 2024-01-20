@@ -6,10 +6,12 @@
 	import PlayPause from './PlayPause.svelte';
 	import Skip from './Skip.svelte';
 	import { currentSong as currentSongUtils, millisToMinutesAndSeconds } from '$lib/utils';
-	import type { APITrack } from '$lib/types';
+	import type { APITrack, Updates } from '$lib/types';
+	import VolumeSlider from './VolumeSlider.svelte';
 
 	export let current: APITrack = {};
 	export let session: Session | null;
+	export let updates: Updates;
 	let currentElapsed: number = 0;
 	let currentLyrics: string = 'No lyrics found';
 	let playingSong: boolean;
@@ -28,7 +30,11 @@
 		if (ret.currentLyrics) currentLyrics = ret.currentLyrics;
 	}
 	async function currentSongLoop() {
-		await currentSong();
+		if(updates?.track){
+			await currentSong(true);
+		} else {
+			await currentSong();
+		}
 		setTimeout(currentSongLoop, 1000);
 	}
 
@@ -55,6 +61,7 @@
 		{/if}
 		<CurrentSong bind:current={currentInfo} />
 	{/await}
+	<VolumeSlider bind:updates />
 	<Lyrics bind:currentLyrics />
 	<PlayPause bind:session bind:playingSong />
 	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
