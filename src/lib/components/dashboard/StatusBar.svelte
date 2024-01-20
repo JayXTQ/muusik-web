@@ -61,7 +61,7 @@
 		{/if}
 		<CurrentSong bind:current={currentInfo} />
 	{/await}
-	<VolumeSlider bind:updates />
+	<VolumeSlider bind:updates bind:session />
 	<Lyrics bind:currentLyrics />
 	<PlayPause bind:session bind:playingSong />
 	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
