@@ -54,13 +54,13 @@
 {#await findUser()}
 	<Loading />
 {:then}
-	<button
+	<a href="/dashboard/settings"
 		><Icon
 			src={Cog6Tooth}
 			class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
 			solid
 			size="68"
-		/></button
+		/></a
 	>
 	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
 		<Queue bind:session bind:supabase bind:current />
