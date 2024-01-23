@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Session } from '@supabase/supabase-js';
-	import { Avatar } from 'flowbite-svelte';
+	import { Avatar, Button, DropdownItem } from 'flowbite-svelte';
 	import CurrentSong from './CurrentSong.svelte';
 	import Lyrics from './Lyrics.svelte';
 	import PlayPause from './PlayPause.svelte';
@@ -8,6 +8,8 @@
 	import { currentSong as currentSongUtils, millisToMinutesAndSeconds } from '$lib/utils';
 	import type { APITrack, Updates } from '$lib/types';
 	import VolumeSlider from './VolumeSlider.svelte';
+	import { Dropdown } from 'flowbite-svelte';
+	import { Bars3, Icon } from 'svelte-hero-icons';
 
 	export let current: APITrack = {};
 	export let session: Session | null;
@@ -48,6 +50,8 @@
 				: `${millisToMinutesAndSeconds(currentElapsed)}/${current.duration}`
 			: ''
 	};
+
+	let dropdown = false;
 </script>
 
 <svelte:window bind:innerWidth />
@@ -63,6 +67,11 @@
 	{/await}
 	<VolumeSlider bind:updates bind:session />
 	<Lyrics bind:currentLyrics />
+	<!-- <button class="my-auto w-auto" on:click={() => dropdown = !dropdown}><Icon src={Bars3} size="70" /></button>
+	<Dropdown placement="top" bind:open={dropdown}>
+		<DropdownItem></DropdownItem>
+	</Dropdown> -->
+	<!-- <Previous bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong /> -->
 	<PlayPause bind:session bind:playingSong />
 	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
 </div>
