@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon, ChatBubbleBottomCenterText } from 'svelte-hero-icons';
-	import { Modal } from 'flowbite-svelte';
+	import { DropdownItem, Modal } from 'flowbite-svelte';
 
 	$: innerWidth = 0;
 
@@ -10,11 +10,9 @@
 
 <svelte:window bind:innerWidth />
 
-{#if innerWidth >= 640}
-	<button class="my-auto w-auto" on:click={() => (lyricsModal = true)}>
-		<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
-	</button>
-{/if}
+<DropdownItem on:click={() => (lyricsModal = true)} class="hover:bg-primary-light-400 dark:hover:bg-primary-dark-400">
+	<Icon src={ChatBubbleBottomCenterText} class="text-white" size="70" solid />
+</DropdownItem>
 <Modal title="Lyrics" class="max-h-[50dvh] overflow-auto" bind:open={lyricsModal}>
 	<pre class="font-inter">{currentLyrics || 'No lyrics found'}</pre>
 </Modal>

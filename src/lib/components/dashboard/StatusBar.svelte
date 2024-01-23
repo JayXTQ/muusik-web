@@ -65,12 +65,13 @@
 		{/if}
 		<CurrentSong bind:current={currentInfo} />
 	{/await}
-	<VolumeSlider bind:updates bind:session />
-	<Lyrics bind:currentLyrics />
-	<!-- <button class="my-auto w-auto" on:click={() => dropdown = !dropdown}><Icon src={Bars3} size="70" /></button>
-	<Dropdown placement="top" bind:open={dropdown}>
-		<DropdownItem></DropdownItem>
-	</Dropdown> -->
+	<button class="my-auto w-auto" on:click={() => dropdown = !dropdown}><Icon src={Bars3} size="70" class="text-white" /></button>
+	{#if dropdown}
+		<Dropdown placement="top" open={true} class="bg-primary-light-300 dark:bg-primary-dark-300 rounded-lg shadow-lg">
+			<VolumeSlider bind:updates bind:session />
+			<Lyrics bind:currentLyrics />
+		</Dropdown>
+	{/if}
 	<!-- <Previous bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong /> -->
 	<PlayPause bind:session bind:playingSong />
 	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon, SpeakerWave } from 'svelte-hero-icons';
-    import { Range } from 'flowbite-svelte';
+    import { Dropdown, DropdownItem, Range } from 'flowbite-svelte';
     import type { Updates } from '$lib/types'
     import { dev } from '$app/environment';
 	import type { Session } from '@supabase/supabase-js';
@@ -13,7 +13,6 @@
         if('volume' in data) volume = Number(data.volume)
     }
 
-    let open = false;
     let volume = 100;
 
 	$: innerWidth = 0;
@@ -21,15 +20,9 @@
 </script>
 
 <svelte:window bind:innerWidth />
-<div class="my-auto w-auto relative">
-    {#if open}
-        <div class="bg-primary-light-300 dark:bg-primary-dark-300 absolute h-44 p-5 w-10 -mt-52 ml-2 rounded-md">
-            <Range bind:value={volume} class="-rotate-90 w-40 -ml-20 -mb-12" on:change={() => Volume('set')} />
-        </div>
-    {/if}
-    {#if innerWidth >= 580}
-        <button on:click={() => open = !open}>
-            <Icon src={SpeakerWave} class="text-white" size="70" solid />
-        </button>
-    {/if}
-</div>
+<DropdownItem class="hover:bg-primary-light-400 dark:hover:bg-primary-dark-400">
+    <Icon src={SpeakerWave} class="text-white" size="70" solid />
+</DropdownItem>
+<Dropdown placement="right-end" class="h-44 w-10 bg-primary-light-300 dark:bg-primary-dark-300 rounded-md">
+    <Range bind:value={volume} class="-rotate-90 w-40 -ml-[3.75rem] -mb-16" on:change={() => Volume('set')} />
+</Dropdown>
