@@ -10,6 +10,7 @@
 	import VolumeSlider from './VolumeSlider.svelte';
 	import { Dropdown } from 'flowbite-svelte';
 	import { Bars3, Icon } from 'svelte-hero-icons';
+	import Previous from './Previous.svelte';
 
 	export let current: APITrack = {};
 	export let session: Session | null;
@@ -72,7 +73,7 @@
 			<Lyrics bind:currentLyrics />
 		</Dropdown>
 	{/if}
-	<!-- <Previous bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong /> -->
+	<Previous bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
 	<PlayPause bind:session bind:playingSong />
 	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
 </div>
