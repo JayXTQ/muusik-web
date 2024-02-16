@@ -26,7 +26,7 @@ export const load = (async ({ parent, params }) => {
 		.single()) as { data: Playlist; error: any };
 	if (supabaseerror) {
 		console.log(supabaseerror)
-		error(404, { message: 'Playlist not found' });
+		throw error(404, { message: 'Playlist not found' });
 	}
 	return { playlist: data, id };
 }) satisfies PageLoad;
