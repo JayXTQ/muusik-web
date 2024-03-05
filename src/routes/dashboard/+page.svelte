@@ -42,7 +42,10 @@
 		);
 		const data = (await res.json()) as
 			| { message: string; success: false }
-			| { updates: { track: boolean; volume: boolean; queue: boolean; paused: boolean; }; success: true };
+			| {
+					updates: { track: boolean; volume: boolean; queue: boolean; paused: boolean };
+					success: true;
+			  };
 		if (data.success) {
 			updates = data.updates;
 		} else {
@@ -71,26 +74,22 @@
 	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
 </svelte:head>
 
-{#await findUser()}
+{#await Promise.all([findUser(), getUpdatesLoop()])}
 	<Loading />
 {:then}
-	{#await getUpdatesLoop()}
-		<Loading />
-	{:then} 
-		<a href="/dashboard/settings"
-			><Icon
-				src={Cog6Tooth}
-				class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
-				solid
-				size="68"
-			/></a
-		>
-		<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
-			<Queue bind:session bind:supabase bind:current bind:updates />
-			<div class="m-5">
-				<SearchSong bind:session bind:current />
-				<StatusBar bind:session bind:current bind:updates />
-			</div>
+	<a href="/dashboard/settings"
+		><Icon
+			src={Cog6Tooth}
+			class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
+			solid
+			size="68"
+		/></a
+	>
+	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
+		<Queue bind:session bind:supabase bind:current bind:updates />
+		<div class="m-5">
+			<SearchSong bind:session bind:current />
+			<StatusBar bind:session bind:current bind:updates />
 		</div>
-	{/await}
+	</div>
 {/await}
