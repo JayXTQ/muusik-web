@@ -21,7 +21,7 @@
 	export let current: APITrack;
 
 	async function getQueue() {
-		const ret = await getQueueUtils(session);
+		const ret = await getQueueUtils(session, supabase);
 		if(ret){
 			queue = ret.queue;
 			history = ret.history;
@@ -82,7 +82,7 @@
 		{:else}
 			<QueueLength bind:current bind:history bind:queue text="/" />
 		{/if}
-		<Shuffle bind:session bind:queue bind:history />
+		<Shuffle bind:supabase bind:session bind:queue bind:history />
 		<CreatePlaylist bind:queue bind:history bind:current bind:supabase />
 	</div>
 </div>

@@ -59,6 +59,19 @@ CREATE POLICY "Enable read access for all users"
     ON playlist
     FOR SELECT 
     USING (true);
+
+create table guilds (
+    id bigint primary key,
+    created_at timestamptz default now(),
+    settings jsonb
+)
+
+alter table guilds enable row level security;
+
+CREATE POLICY "Enable read access for all users" ON "public"."guilds"
+AS PERMISSIVE FOR SELECT
+TO authenticated
+USING (true)
 ```
 
 ### Making changes
