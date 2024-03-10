@@ -14,13 +14,14 @@
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
 	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
 	import type { APIChannel, APITrack, Updates } from '$lib/types.js';
+	import { getAPI } from '$lib/utils.js';
 
 	let current: APITrack = {};
 	let updates: Updates = null;
 
 	async function findUser() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/find-user?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);
@@ -36,7 +37,7 @@
 
 	async function getUpdates() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/updates?user=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/updates?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);
@@ -88,8 +89,8 @@
 	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
 		<Queue bind:session bind:supabase bind:current bind:updates />
 		<div class="m-5">
-			<SearchSong bind:session bind:current />
-			<StatusBar bind:session bind:current bind:updates />
+			<SearchSong bind:supabase bind:session bind:current />
+			<StatusBar bind:supabase bind:session bind:current bind:updates />
 		</div>
 	</div>
 {/await}

@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import type { Session } from '@supabase/supabase-js';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import { Icon, Play, Pause } from 'svelte-hero-icons';
 	import { fail } from '@sveltejs/kit';
-	import { checkPlaying as checkPlayingUtils } from '$lib/utils';
+	import { checkPlaying as checkPlayingUtils, getAPI } from '$lib/utils';
 
+	export let supabase: SupabaseClient;
 	export let session: Session | null;
 	export let playingSong: boolean = false;
 
 	async function playPause() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/pause`, {
+		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/pause`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});
@@ -23,7 +24,7 @@
 		}
 	}
 	async function checkPlaying(){
-		playingSong = await checkPlayingUtils(session);
+		playingSong = await checkPlayingUtils(session, supabase);
 	}
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Session } from '@supabase/supabase-js';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import { Avatar, Button, DropdownItem } from 'flowbite-svelte';
 	import CurrentSong from './CurrentSong.svelte';
 	import Lyrics from './Lyrics.svelte';
@@ -14,6 +14,7 @@
 
 	export let current: APITrack = {};
 	export let session: Session | null;
+	export let supabase: SupabaseClient;
 	export let updates: Updates;
 	let currentElapsed: number = 0;
 	let currentLyrics: string = 'No lyrics found';
@@ -26,7 +27,7 @@
 	};
 
 	async function currentSong(skip?: boolean) {
-		const ret = await currentSongUtils(session, current, currentElapsed, playingSong, skip);
+		const ret = await currentSongUtils(session, current, currentElapsed, playingSong, supabase, skip);
 		current = ret.current;
 		currentElapsed = ret.currentElapsed;
 		playingSong = ret.playingSong;
@@ -69,11 +70,11 @@
 	<button class="my-auto w-auto" on:click={() => dropdown = !dropdown}><Icon src={Bars3} size="70" class="text-white" /></button>
 	{#if dropdown}
 		<Dropdown placement="top" open={true} class="bg-primary-light-300 dark:bg-primary-dark-300 rounded-lg shadow-lg">
-			<VolumeSlider bind:updates bind:session />
+			<VolumeSlider bind:supabase bind:updates bind:session />
 			<Lyrics bind:currentLyrics />
 		</Dropdown>
 	{/if}
-	<Previous bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
-	<PlayPause bind:session bind:playingSong />
-	<Skip bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
+	<Previous bind:supabase bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
+	<PlayPause bind:supabase bind:session bind:playingSong />
+	<Skip bind:supabase bind:session bind:current bind:currentElapsed bind:currentLyrics bind:playingSong />
 </div>
