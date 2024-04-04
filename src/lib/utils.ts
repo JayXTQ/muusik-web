@@ -1,10 +1,11 @@
-import type { Session } from '@supabase/supabase-js';
+import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { dev } from '$app/environment';
 import type { APITrack, APIUser } from './types';
+import type { ReceiptRefund } from 'svelte-hero-icons';
 
-export async function checkPlaying(session: Session | null) {
+export async function checkPlaying(session: Session | null, supabase: SupabaseClient) {
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : 'api.muusik.app'}/check-playing?user=${encodeURIComponent(
+        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/check-playing?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -18,8 +19,8 @@ export async function checkPlaying(session: Session | null) {
     }
 }
 
-export async function getUser(user: string) {
-    const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-user?user=${user}`);
+export async function getUser(user: string, supabase: SupabaseClient, session: Session | null) {
+    const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/get-user?user=${user}`);
     const data = (await res.json()) as
         | { message: string; success: false }
         | { user: APIUser; success: true };
@@ -32,9 +33,9 @@ export async function getUser(user: string) {
     }
 }
 
-export async function getQueue(session: Session | null) {
+export async function getQueue(session: Session | null, supabase: SupabaseClient) {
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : 'api.muusik.app'}/queue?user=${encodeURIComponent(
+        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/queue?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -48,13 +49,13 @@ export async function getQueue(session: Session | null) {
         queue =
             (await Promise.all(
                 data.queue.map(async (q) => {
-                    return { ...q, requestedBy: (await getUser(q.requestedBy as string) as APIUser).username };
+                    return { ...q, requestedBy: (await getUser(q.requestedBy as string, supabase, session) as APIUser).username };
                 })
             )) || [];
         history =
             (await Promise.all(
                 data.history.map(async (q) => {
-                    return { ...q, requestedBy: (await getUser(q.requestedBy as string) as APIUser).username };
+                    return { ...q, requestedBy: (await getUser(q.requestedBy as string, supabase, session) as APIUser).username };
                 })
             )) || [];
     } else {
@@ -68,7 +69,7 @@ export function checkExists(value: Record<string, unknown>) {
     else return true;
 }
 
-export async function currentSong(session: Session | null, current: APITrack, currentElapsed: number, playingSong: boolean, skip?: boolean) {
+export async function currentSong(session: Session | null, current: APITrack, currentElapsed: number, playingSong: boolean, supabase: SupabaseClient, skip?: boolean) {
     if (
         currentElapsed - 1000 < (current.durationMS as number) &&
         playingSong &&
@@ -79,7 +80,7 @@ export async function currentSong(session: Session | null, current: APITrack, cu
         return { current, currentElapsed, playingSong };
     }
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : 'api.muusik.app'}/current-song?user=${encodeURIComponent(
+        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/current-song?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -118,4 +119,14 @@ export function millisToMinutesAndSeconds(millis: number) {
         formatted = parts.map((s) => String(s).padStart(2, '0')).join(':');
     if (formatted === 'NaN:NaN') return '00:00';
     return formatted;
+}
+
+export async function getAPI(supabase: SupabaseClient, session: Session | null, returnProtocol = false, fetchAPI = fetch): Promise<string> {
+    if (!session) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
+    const guild = await fetchAPI(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
+    const data = (await guild.json()) as { message: string; success: false } | { success: true; guild: string };
+    if (!data.success) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
+    const { data: data_, error } = await supabase.from('guilds').select('settings').eq('id', data.guild).single() as { data: { settings: { api: string } }, error: any };
+    if (error) return !returnProtocol ? 'https://api.muusik.app': 'api.muusik.app';
+    return !returnProtocol ? data_.settings.api  : data_.settings.api.split('//')[1];
 }

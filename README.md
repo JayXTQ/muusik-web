@@ -59,11 +59,28 @@ CREATE POLICY "Enable read access for all users"
     ON playlist
     FOR SELECT 
     USING (true);
+
+create table guilds (
+    id bigint primary key,
+    created_at timestamptz default now(),
+    settings jsonb
+)
+
+alter table guilds enable row level security;
+
+CREATE POLICY "Enable read access for all users" ON "public"."guilds"
+AS PERMISSIVE FOR SELECT
+TO authenticated
+USING (true)
 ```
 
 ### Making changes
 
 Once you have made your changes, commit to your fork and then you can go and make a pull request back to the main repository. Once you have done this, I will review your changes and then merge them into the main repository if the changes are good. For more information about making pull requests, check on [GitHub's Docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
+
+### Hosting
+
+Typically, you won't need to host this part of the project yourself, due to the nature of being able to interchange the API being used. If you still wish to carry on hosting, I would recommend reading the SvelteKit docs to understand how to host the project on your relevent platform, they explain this quite well over there.
 
 ## Issues
 

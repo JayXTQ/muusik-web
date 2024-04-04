@@ -1,25 +1,26 @@
 <script lang="ts">
-	import type { Session } from '@supabase/supabase-js';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import { Icon, Forward } from 'svelte-hero-icons';
 	import { dev } from '$app/environment';
 	import { fail } from '@sveltejs/kit';
-	import { currentSong } from '$lib/utils';
+	import { currentSong, getAPI } from '$lib/utils';
 	import type { APITrack } from '$lib/types';
 
 	export let session: Session | null;
+	export let supabase: SupabaseClient;
 	export let current: APITrack;
 	export let currentElapsed: number;
 	export let playingSong: boolean;
 	export let currentLyrics: string;
 
 	async function skip() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/skip`, {
+		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/skip`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});
 		const data = (await res.json()) as { message: string; success: false } | { success: true };
 		if (data.success) {
-			const ret = await currentSong(session, current, currentElapsed, playingSong, true);
+			const ret = await currentSong(session, current, currentElapsed, playingSong, supabase, true);
 			current = ret.current;
 			currentElapsed = ret.currentElapsed;
 			playingSong = ret.playingSong;

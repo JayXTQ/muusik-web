@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { Input, Modal, Spinner, Button, A, P } from 'flowbite-svelte';
 	import { dev } from '$app/environment';
-	import type { Session } from '@supabase/supabase-js';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import { fail } from '@sveltejs/kit';
 	import type { Tracks, Songs, APITrack } from '$lib/types';
-	import { checkExists } from '$lib/utils';
+	import { checkExists, getAPI } from '$lib/utils';
 
 	export let session: Session | null;
 	export let current: APITrack;
+	export let supabase: SupabaseClient;
 
 	let searchQuery: string = '';
 	let songs: Tracks = [];
@@ -17,7 +18,7 @@
 	let playing: { res: Response; data: { message?: string; success: boolean } } | undefined;
 
 	async function playPlaylist() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/playlist`, {
+		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/playlist`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id, url: searchQuery })
 		});
@@ -42,7 +43,7 @@
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
 			const res = await fetch(
-				`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-song?query=${encodeURIComponent(
+				`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/find-song?query=${encodeURIComponent(
 					searchQuery
 				)}`
 			);
@@ -54,7 +55,7 @@
 	}
 	async function playLinks() {
 		let res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/get-playlinks?url=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/get-playlinks?url=${encodeURIComponent(
 				chosenUrl
 			)}`
 		);
@@ -64,7 +65,7 @@
 		if (!playLinkData.success) throw fail(res.status, { message: playLinkData.message });
 		const links = playLinkData.links;
 		res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/song-info?url=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/song-info?url=${encodeURIComponent(
 				chosenUrl
 			)}`
 		);
@@ -80,7 +81,7 @@
 	}
 	async function play(url: string) {
 		selectModal = false;
-		const res = await fetch(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/play`, {
+		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/play`, {
 			method: 'POST',
 			body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id })
 		});

@@ -14,13 +14,14 @@
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
 	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
 	import type { APIChannel, APITrack, Updates } from '$lib/types.js';
+	import { getAPI } from '$lib/utils.js';
 
 	let current: APITrack = {};
 	let updates: Updates = null;
 
 	async function findUser() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/find-user?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);
@@ -36,13 +37,16 @@
 
 	async function getUpdates() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : 'api.muusik.app'}/updates?user=${encodeURIComponent(
+			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/updates?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);
 		const data = (await res.json()) as
 			| { message: string; success: false }
-			| { updates: { track: boolean; volume: boolean; queue: boolean; paused: boolean; }; success: true };
+			| {
+					updates: { track: boolean; volume: boolean; queue: boolean; paused: boolean };
+					success: true;
+			  };
 		if (data.success) {
 			updates = data.updates;
 		} else {
@@ -71,26 +75,22 @@
 	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
 </svelte:head>
 
-{#await findUser()}
+{#await Promise.all([findUser(), getUpdatesLoop()])}
 	<Loading />
 {:then}
-	{#await getUpdatesLoop()}
-		<Loading />
-	{:then} 
-		<a href="/dashboard/settings"
-			><Icon
-				src={Cog6Tooth}
-				class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
-				solid
-				size="68"
-			/></a
-		>
-		<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
-			<Queue bind:session bind:supabase bind:current bind:updates />
-			<div class="m-5">
-				<SearchSong bind:session bind:current />
-				<StatusBar bind:session bind:current bind:updates />
-			</div>
+	<a href="/dashboard/settings"
+		><Icon
+			src={Cog6Tooth}
+			class="float-right m-5 text-white absolute right-0 top-0 w-10 h-auto lg:w-fit"
+			solid
+			size="68"
+		/></a
+	>
+	<div class="flex flex-col justify-center h-screen mr-56 w-full -mt-6">
+		<Queue bind:session bind:supabase bind:current bind:updates />
+		<div class="m-5">
+			<SearchSong bind:supabase bind:session bind:current />
+			<StatusBar bind:supabase bind:session bind:current bind:updates />
 		</div>
-	{/await}
+	</div>
 {/await}
