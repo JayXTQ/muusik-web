@@ -22,7 +22,7 @@ export const actions: Actions = {
             }
         }
         if(guild){
-            const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/get-owner?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`)
+            const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/get-owner?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`)
             const data_ = await res.json() as {
                 success: false; message: string
             } | {
@@ -57,7 +57,7 @@ export const load: PageServerLoad = async ({ fetch, locals }) => {
     } = {
         api
     }
-    const res = await fetch(`//${dev ? 'localhost:8000' : api}/get-owner?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`);
+    const res = await fetch(`${dev ? '//localhost:8000' : api}/get-owner?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`);
     const data_ = (await res.json()) as
         | { message: string; success: false }
         | { owner: string; guild: string; success: true };

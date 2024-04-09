@@ -18,7 +18,7 @@
 	let playing: { res: Response; data: { message?: string; success: boolean } } | undefined;
 
 	async function playPlaylist() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/playlist`, {
+		const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/playlist`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id, url: searchQuery })
 		});
@@ -43,7 +43,7 @@
 		clearTimeout(timer);
 		timer = setTimeout(async () => {
 			const res = await fetch(
-				`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/find-song?query=${encodeURIComponent(
+				`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/find-song?query=${encodeURIComponent(
 					searchQuery
 				)}`
 			);
@@ -55,7 +55,7 @@
 	}
 	async function playLinks() {
 		let res = await fetch(
-			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/get-playlinks?url=${encodeURIComponent(
+			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/get-playlinks?url=${encodeURIComponent(
 				chosenUrl
 			)}`
 		);
@@ -65,7 +65,7 @@
 		if (!playLinkData.success) throw fail(res.status, { message: playLinkData.message });
 		const links = playLinkData.links;
 		res = await fetch(
-			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/song-info?url=${encodeURIComponent(
+			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/song-info?url=${encodeURIComponent(
 				chosenUrl
 			)}`
 		);
@@ -81,7 +81,7 @@
 	}
 	async function play(url: string) {
 		selectModal = false;
-		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/play`, {
+		const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/play`, {
 			method: 'POST',
 			body: JSON.stringify({ url, user: session?.user.user_metadata.provider_id })
 		});

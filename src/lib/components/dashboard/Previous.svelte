@@ -14,7 +14,7 @@
 	export let currentLyrics: string;
 
 	async function previous() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/previous`, {
+		const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/previous`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});

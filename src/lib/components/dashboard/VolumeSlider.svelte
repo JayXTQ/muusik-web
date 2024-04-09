@@ -10,7 +10,7 @@
     export let session: Session | null
 
     async function Volume(type: string){
-        const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/volume/${type}?user=${session?.user.user_metadata.provider_id}&volume=${volume}`)
+        const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/volume/${type}?user=${session?.user.user_metadata.provider_id}&volume=${volume}`)
         const data = await res.json() as { message: string; success: false } | { success: true } | { volume: string }
         if('volume' in data) volume = Number(data.volume)
     }
