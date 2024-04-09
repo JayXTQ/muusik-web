@@ -121,11 +121,13 @@ export function millisToMinutesAndSeconds(millis: number) {
 }
 
 export async function getAPI(supabase: SupabaseClient, session: Session | null, returnProtocol = false, fetchAPI = fetch): Promise<string> {
+    if(window.sessionStorage.getItem('api')) return !returnProtocol ? window.sessionStorage.getItem('api') as string : window.sessionStorage.getItem('api')?.split('//')[1] as string;
     if (!session) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
     const guild = await fetchAPI(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
     const data = (await guild.json()) as { message: string; success: false } | { success: true; guild: string | { id: string } };
     if (!data.success) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
     const { data: data_, error } = await supabase.from('guilds').select('settings').eq('id', typeof data.guild !== 'string' ? data.guild.id : data.guild).single() as { data: { settings: { api: string } }, error: any };
     if (error) return !returnProtocol ? 'https://api.muusik.app': 'api.muusik.app';
+    window.sessionStorage.setItem('api', data_.settings.api);
     return !returnProtocol ? data_.settings.api  : data_.settings.api.split('//')[1];
 }
