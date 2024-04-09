@@ -122,7 +122,7 @@ export function millisToMinutesAndSeconds(millis: number) {
 
 export async function getAPI(supabase: SupabaseClient, session: Session | null, returnProtocol = false, fetchAPI = fetch): Promise<string> {
     if (!session) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
-    const guild = await fetchAPI(`${dev ? '//localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
+    const guild = await fetchAPI(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
     const data = (await guild.json()) as { message: string; success: false } | { success: true; guild: string };
     if (!data.success) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
     const { data: data_, error } = await supabase.from('guilds').select('settings').eq('id', data.guild).single() as { data: { settings: { api: string } }, error: any };
