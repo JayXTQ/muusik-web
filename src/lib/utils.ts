@@ -128,6 +128,10 @@ export async function getAPI(supabase: SupabaseClient, session: Session | null, 
     if (!data.success) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
     const { data: data_, error } = await supabase.from('guilds').select('settings').eq('id', typeof data.guild !== 'string' ? data.guild.id : data.guild).maybeSingle() as { data: { settings: { api: string } }, error: any };
     if (error) return !returnProtocol ? 'https://api.muusik.app': 'api.muusik.app';
+    if(Array.isArray(data)) {
+        window.sessionStorage.setItem('api', data[0].settings.api);
+        return !returnProtocol ? data[0].settings.api : data[0].settings.api.split('//')[1];
+    };
     window.sessionStorage.setItem('api', data_.settings.api);
     return !returnProtocol ? data_.settings.api  : data_.settings.api.split('//')[1];
 }
