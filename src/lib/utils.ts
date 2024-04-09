@@ -5,7 +5,7 @@ import type { ReceiptRefund } from 'svelte-hero-icons';
 
 export async function checkPlaying(session: Session | null, supabase: SupabaseClient) {
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/check-playing?user=${encodeURIComponent(
+        `${dev ? '//localhost:8000' : await getAPI(supabase, session)}/check-playing?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -20,7 +20,7 @@ export async function checkPlaying(session: Session | null, supabase: SupabaseCl
 }
 
 export async function getUser(user: string, supabase: SupabaseClient, session: Session | null) {
-    const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/get-user?user=${user}`);
+    const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/get-user?user=${user}`);
     const data = (await res.json()) as
         | { message: string; success: false }
         | { user: APIUser; success: true };
@@ -34,7 +34,7 @@ export async function getUser(user: string, supabase: SupabaseClient, session: S
 
 export async function getQueue(session: Session | null, supabase: SupabaseClient) {
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/queue?user=${encodeURIComponent(
+        `${dev ? '//localhost:8000' : await getAPI(supabase, session)}/queue?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -79,7 +79,7 @@ export async function currentSong(session: Session | null, current: APITrack, cu
         return { current, currentElapsed, playingSong };
     }
     const res = await fetch(
-        `//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/current-song?user=${encodeURIComponent(
+        `${dev ? '//localhost:8000' : await getAPI(supabase, session)}/current-song?user=${encodeURIComponent(
             session?.user.user_metadata.provider_id
         )}`
     );
@@ -122,7 +122,7 @@ export function millisToMinutesAndSeconds(millis: number) {
 
 export async function getAPI(supabase: SupabaseClient, session: Session | null, returnProtocol = false, fetchAPI = fetch): Promise<string> {
     if (!session) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
-    const guild = await fetchAPI(`//${dev ? 'localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
+    const guild = await fetchAPI(`${dev ? '//localhost:8000' : 'api.muusik.app'}/find-user?user=${encodeURIComponent(session.user.user_metadata.provider_id)}`);
     const data = (await guild.json()) as { message: string; success: false } | { success: true; guild: string };
     if (!data.success) return !returnProtocol ? 'https://api.muusik.app' : 'api.muusik.app';
     const { data: data_, error } = await supabase.from('guilds').select('settings').eq('id', data.guild).single() as { data: { settings: { api: string } }, error: any };

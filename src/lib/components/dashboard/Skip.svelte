@@ -14,7 +14,7 @@
 	export let currentLyrics: string;
 
 	async function skip() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/skip`, {
+		const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/skip`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});

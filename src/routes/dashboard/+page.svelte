@@ -21,7 +21,7 @@
 
 	async function findUser() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/find-user?user=${encodeURIComponent(
+			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/find-user?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);
@@ -37,7 +37,7 @@
 
 	async function getUpdates() {
 		const res = await fetch(
-			`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/updates?user=${encodeURIComponent(
+			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/updates?user=${encodeURIComponent(
 				session?.user.user_metadata.provider_id
 			)}`
 		);

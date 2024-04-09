@@ -10,7 +10,7 @@
 	export let playingSong: boolean = false;
 
 	async function playPause() {
-		const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/pause`, {
+		const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/pause`, {
 			method: 'POST',
 			body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 		});
