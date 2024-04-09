@@ -59,7 +59,7 @@ export async function getQueue(session: Session | null, supabase: SupabaseClient
                 })
             )) || [];
     } else {
-        return null;
+        return { queue, history };
     }
     return { queue, history };
 }
