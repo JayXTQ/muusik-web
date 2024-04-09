@@ -25,7 +25,6 @@ export async function getUser(user: string, supabase: SupabaseClient, session: S
         | { message: string; success: false }
         | { user: APIUser; success: true };
     if (data.success) {
-        console.log(data.user)
         return data.user;
     }
     else {
