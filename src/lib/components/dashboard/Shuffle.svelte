@@ -16,7 +16,7 @@
 	async function shuffle() {
 		clearTimeout(shuffleTimer);
 		shuffleTimer = setTimeout(async () => {
-			const res = await fetch(`//${dev ? 'localhost:8000' : await getAPI(supabase, session)}/shuffle`, {
+			const res = await fetch(`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/shuffle`, {
 				method: 'POST',
 				body: JSON.stringify({ user: session?.user.user_metadata.provider_id })
 			});
