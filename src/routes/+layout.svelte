@@ -4,6 +4,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { DarkMode } from 'flowbite-svelte';
+	import Cookies from '$lib/components/Cookies.svelte';
 
 	export let data;
 
@@ -27,3 +28,5 @@
 <DarkMode class="absolute top-5 left-5" size="lg" />
 
 <slot />
+
+<Cookies />
