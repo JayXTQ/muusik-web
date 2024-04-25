@@ -29,4 +29,4 @@
 
 <slot />
 
-<Cookies />
+<!-- <Cookies /> -->
