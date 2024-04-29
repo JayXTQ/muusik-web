@@ -21,9 +21,9 @@
 
 	async function findUser() {
 		const res = await fetch(
-			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/find-user?user=${encodeURIComponent(
-				session?.user.user_metadata.provider_id
-			)}`
+			`${
+				dev ? '//localhost:8000' : await getAPI(supabase, session)
+			}/find-user?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`
 		);
 		const data = (await res.json()) as
 			| { message: string; success: false }
@@ -31,15 +31,15 @@
 		if (data.success) {
 			return data.success;
 		} else {
-			return fail(res.status, { message: data.message });
+			throw new Error(data.message);
 		}
 	}
 
 	async function getUpdates() {
 		const res = await fetch(
-			`${dev ? '//localhost:8000' : await getAPI(supabase, session)}/updates?user=${encodeURIComponent(
-				session?.user.user_metadata.provider_id
-			)}`
+			`${
+				dev ? '//localhost:8000' : await getAPI(supabase, session)
+			}/updates?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`
 		);
 		const data = (await res.json()) as
 			| { message: string; success: false }
