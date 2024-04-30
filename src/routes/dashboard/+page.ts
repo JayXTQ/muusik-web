@@ -8,7 +8,10 @@ export const load: PageLoad = async ({ parent, fetch }) => {
 	const { session, supabase } = await parent();
 
 	if (!session) {
-		await supabase.auth.signInWithOAuth({ provider: 'discord' });
+		return await supabase.auth.signInWithOAuth({
+			provider: 'discord'
+			// options: { scopes: 'email guilds' }
+		});
 	}
 
 	const res = await fetch(
