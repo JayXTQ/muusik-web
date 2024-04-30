@@ -5,6 +5,7 @@ import { getAPI } from '$lib/utils';
 import { dev } from '$app/environment';
 
 export const load: PageLoad = async ({ parent }) => {
+	const { session, supabase } = await parent();
 	async function findUser() {
 		const res = await fetch(
 			`${
@@ -20,7 +21,6 @@ export const load: PageLoad = async ({ parent }) => {
 			throw error(400, { message: data.message });
 		}
 	}
-	const { session, supabase } = await parent();
 
 	if (!session) {
 		await supabase.auth.signInWithOAuth({ provider: 'discord' });
