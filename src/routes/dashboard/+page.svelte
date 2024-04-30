@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import { fail } from '@sveltejs/kit';
+	import { error } from '@sveltejs/kit';
 
 	export let data;
 	let { supabase, session } = data;
@@ -31,7 +31,7 @@
 		if (data.success) {
 			return data.success;
 		} else {
-			throw new Error(data.message);
+			throw error(400, { message: data.message });
 		}
 	}
 
