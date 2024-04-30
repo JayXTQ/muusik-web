@@ -4,7 +4,7 @@ import type { APIChannel } from '$lib/types';
 import { getAPI } from '$lib/utils';
 import { dev } from '$app/environment';
 
-export const load: PageLoad = async ({ parent }) => {
+export const load: PageLoad = async ({ parent, fetch }) => {
 	const { session, supabase } = await parent();
 
 	if (!session) {
