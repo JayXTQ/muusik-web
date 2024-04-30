@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
+	import { error } from '@sveltejs/kit';
 
 	export let data;
 	let { supabase, session } = data;
@@ -12,11 +13,27 @@
 	import { Loading } from '$lib/components';
 	import { Queue, SearchSong, StatusBar } from '$lib/components/dashboard';
 	import { Icon, Cog6Tooth } from 'svelte-hero-icons';
-	import type { APITrack, Updates } from '$lib/types.js';
+	import type { APIChannel, APITrack, Updates } from '$lib/types.js';
 	import { getAPI } from '$lib/utils.js';
 
 	let current: APITrack = {};
 	let updates: Updates = null;
+
+	async function findUser() {
+		const res = await fetch(
+			`${
+				dev ? '//localhost:8000' : await getAPI(supabase, session)
+			}/find-user?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`
+		);
+		const data = (await res.json()) as
+			| { message: string; success: false }
+			| { channel: APIChannel; success: true };
+		if (data.success) {
+			return data.success;
+		} else {
+			throw error(400, { message: data.message });
+		}
+	}
 
 	async function getUpdates() {
 		const res = await fetch(
@@ -58,7 +75,7 @@
 	<meta name="description" content="The dashboard for Muusik, an open-source Discord music bot" />
 </svelte:head>
 
-{#await Promise.all([data.findUser(), getUpdatesLoop()])}
+{#await Promise.all([findUser(), getUpdatesLoop()])}
 	<Loading />
 {:then}
 	<a href="/dashboard/settings"
