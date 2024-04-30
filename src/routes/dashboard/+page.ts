@@ -13,7 +13,7 @@ export const load: PageLoad = async ({ parent, fetch }) => {
 
 	const res = await fetch(
 		`${
-			dev ? '//localhost:8000' : await getAPI(supabase, session)
+			dev ? '//localhost:8000' : await getAPI(supabase, session, false, fetch)
 		}/find-user?user=${encodeURIComponent(session?.user.user_metadata.provider_id)}`
 	);
 	const data = (await res.json()) as
