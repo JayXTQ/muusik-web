@@ -11,11 +11,13 @@
 	>{String($page.status).startsWith('5') ? 'Something went wrong!' : $page.error?.message}</Heading
 >
 <br />
-<P class="text-center"
+<P class="text-center mx-10"
 	>Maybe check if the muusik.app API is down? <A
 		class="text-blue-600"
 		href="https://status.jayxtq.xyz">Status page</A
-	></P
+	>{$page.error?.message === 'User not in a voice channel'
+		? '. Also check if you are in a voice channel, if not, join one and try again.'
+		: ''}</P
 >
 <br />
 

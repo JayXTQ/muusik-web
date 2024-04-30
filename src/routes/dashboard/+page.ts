@@ -20,6 +20,6 @@ export const load: PageLoad = async ({ parent }) => {
 		| { message: string; success: false }
 		| { channel: APIChannel; success: true };
 	if (!data.success) {
-		throw error(400, { message: data.message });
+		throw error(404, { message: data.message });
 	}
 };
